@@ -57,7 +57,7 @@
       "https://itexamanswers.net/wp-content/uploads/2020/01/CCNA1-v7-ITN-IP-Addressing-Exam-Answers-001-1536x942-1.png"
     ],
     "correct_answers": [
-      "."
+      "https://itexamanswers.net/wp-content/uploads/2020/01/CCNA1-v7-ITN-IP-Addressing-Exam-Answers-001-1536x942-1.png"
     ],
     "explanation": "Subnet 192.168.1.32/27 will have a valid host range from 192.168.1.33 - 192.168.1.62 with the broadcast address as 192.168.1.63\nSubnet 192.168.1.64/27 will have a valid host range from 192.168.1.65 - 192.168.1.94 with the broadcast address as 192.168.1.95\nSubnet 192.168.1.96/27 will have a valid host range from 192.168.1.97 - 192.168.1.126 with the broadcast address as 192.168.1.127"
   },
@@ -123,7 +123,7 @@
       "https://itexamanswers.net/wp-content/uploads/2020/01/CCNA1-v7-ITN-IP-Addressing-Exam-Answers-002-1536x1013-1.png"
     ],
     "correct_answers": [
-      "."
+      "https://itexamanswers.net/wp-content/uploads/2020/01/CCNA1-v7-ITN-IP-Addressing-Exam-Answers-002-1536x1013-1.png"
     ]
   },
   {
@@ -221,7 +221,7 @@
       "https://itexamanswers.net/wp-content/uploads/2019/12/2024-09-17_191902.jpg"
     ],
     "correct_answers": [
-      "."
+      "https://itexamanswers.net/wp-content/uploads/2019/12/2024-09-17_191902.jpg"
     ],
     "explanation": "Network A needs to use 192.168.0.128 /25, which yields 128 host addresses.\nNetwork B needs to use 192.168.0.0 /26, which yields 64 host addresses.\nNetwork C needs to use 192.168.0.96 /27, which yields 32 host addresses.\nNetwork D needs to use 192.168.0.80/30, which yields 4 host addresses."
   },
@@ -417,10 +417,10 @@
     "question": "Match the IPv6 address with the IPv6 address type. (Not all options are used.)",
     "image_url": "https://itexamanswers.net/wp-content/uploads/2019/12/2024-09-17_192048.jpg",
     "options": [
-      "."
+      "https://itexamanswers.net/wp-content/uploads/2019/12/2024-09-17_192048.jpg"
     ],
     "correct_answers": [
-      "."
+      "https://itexamanswers.net/wp-content/uploads/2019/12/2024-09-17_192048.jpg"
     ],
     "explanation": "FF02::1:FFAE:F85F is a solicited node multicast address.\n2001:DB8::BAF:3F57:FE94 is a global unicast address.\nFF02::1 is the all node multicast address. Packets sent to this address will be received by all IPv6 hosts on the local link.\n::1 is the IPv6 loopback address.\nThere are no examples of link local or unique local addresses provided."
   },
@@ -497,7 +497,7 @@
       "https://itexamanswers.net/wp-content/uploads/2020/01/CCNA1-v7-ITN-IP-Addressing-Exam-Answers-005-1536x650-1.png"
     ],
     "correct_answers": [
-      "."
+      "https://itexamanswers.net/wp-content/uploads/2020/01/CCNA1-v7-ITN-IP-Addressing-Exam-Answers-005-1536x650-1.png"
     ]
   },
   {
@@ -598,7 +598,7 @@
       "https://itexamanswers.net/wp-content/uploads/2019/12/2024-09-17_193118.jpg"
     ],
     "correct_answers": [
-      "."
+      "https://itexamanswers.net/wp-content/uploads/2019/12/2024-09-17_193118.jpg"
     ],
     "explanation": "Link-Local addresses are assigned automatically by the OS environment and are located in the block 169.254.0.0/16. The private addresses ranges are 10.0.0.0/8, 172.16.0.0/12, and 192.168.0.0/16. TEST-NET addresses belong to the range 192.0.2.0/24. The addresses in the block 240.0.0.0 to 255.255.255.254 are reserved as experimental addresses. Loopback addresses belong to the block 127.0.0.0/8."
   },
