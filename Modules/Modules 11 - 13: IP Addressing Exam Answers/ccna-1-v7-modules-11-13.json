@@ -341,7 +341,7 @@
   {
     "question": "Consider the following range of addresses: 2001:0DB8:BC15:00A0:0000::\n2001:0DB8:BC15:00A1:0000::\n2001:0DB8:BC15:00A2:0000::\n...\n2001:0DB8:BC15:00AF:0000::\nThe prefix-length for the range of addresses is _____.",
     "options": [
-      "?"
+      "/60"
     ],
     "correct_answers": [
       "/60"

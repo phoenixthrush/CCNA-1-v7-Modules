@@ -241,39 +241,13 @@
     <button id="next-btn">Submit</button>
     <div class="copyright"><a href="https://phoenixthrush.com" target="_blank" rel="noopener noreferrer">© 2025
             phoenixthrush</a></div>
-
-    <script>
-        async function setRandomFavicon() {
-            try {
-                const response = await fetch("https://api.nekosapi.com/v4/images/random?rating=safe&limit=1&tags=girl");
-                const data = await response.json();
-
-                // Extract the image file
-                const imgUrl = data.items?.[0]?.image_url || data.items?.[0]?.url;
-                if (!imgUrl) return;
-
-                // Remove old favicons
-                document.querySelectorAll("link[rel='icon'], link[rel='shortcut icon']").forEach(el => el.remove());
-
-                // Create new favicon link tag
-                const link = document.createElement("link");
-                link.rel = "icon";
-                link.type = "image/png";
-                link.href = imgUrl;
-
-                document.head.appendChild(link);
-
-            } catch (err) {
-                console.error("Failed to set favicon:", err);
-            }
-        }
-
-        setRandomFavicon();
-    </script>
     <script>
         function shuffle(arr) {
             return arr
-                .map(a => ({ sort: Math.random(), value: a }))
+                .map(a => ({
+                    sort: Math.random(),
+                    value: a
+                }))
                 .sort((a, b) => a.sort - b.sort)
                 .map(a => a.value);
         }
@@ -465,16 +439,18 @@
             }
 
             let chosen = [];
-            inputs.forEach(i => { if (i.checked) chosen.push(i.value); });
+            inputs.forEach(i => {
+                if (i.checked) chosen.push(i.value);
+            });
 
             if (chosen.length === 0) {
                 resultMsg.textContent = 'Please choose an answer.';
                 return;
             }
 
-            const correct = Array.isArray(q.correct_answers)
-                && chosen.length === q.correct_answers.length
-                && chosen.every(a => q.correct_answers.includes(a));
+            const correct = Array.isArray(q.correct_answers) &&
+                chosen.length === q.correct_answers.length &&
+                chosen.every(a => q.correct_answers.includes(a));
 
             // Disable inputs to lock the answer after submission
             inputs.forEach(i => i.disabled = true);
@@ -522,6 +498,21 @@
         });
 
         loadQuestions();
+
+        document.addEventListener('keydown', (e) => {
+            const keys = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'];
+            if (!keys.includes(e.key)) return;
+
+            const index = e.key === '0' ? 9 : parseInt(e.key, 10) - 1;
+            const li = document.getElementById(`li-${index}`);
+            if (!li) return;
+
+            const label = li.querySelector('label');
+            if (label) {
+                e.preventDefault();
+                label.click();
+            }
+        });
     </script>
 </body>
 
