@@ -1,0 +1,1248 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cisco CCNA v7 - Modules 14-15</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+            font-size: 1.1em;
+            color: #e8e6e1;
+        }
+
+        #questions-container {
+            max-width: 900px;
+            margin: 0 auto 30px;
+            background: #222425;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+            padding: 40px;
+            border: 1px solid #3a3d3f;
+            position: relative;
+        }
+
+        .question-counter {
+            position: absolute;
+            bottom: 20px;
+            right: 30px;
+            font-size: 0.95em;
+            color: #8ab4f8;
+            font-weight: 600;
+        }
+
+        #questions-container>div>p:first-child {
+            font-size: 1.4em;
+            font-weight: 600;
+            color: #e8e6e1;
+            margin-bottom: 25px;
+            line-height: 1.5;
+        }
+
+        #questions-container img {
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        ul {
+            list-style-type: none;
+            margin: 25px 0;
+        }
+
+        li {
+            margin: 12px 0;
+            transition: all 0.3s ease;
+        }
+
+        input[type="radio"],
+        input[type="checkbox"] {
+            display: none;
+        }
+
+        label {
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            background: #2d2e30;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            border: 2px solid #3a3d3f;
+            color: #e8e6e1;
+        }
+
+        label:hover {
+            background: #3a3d3f;
+            border-color: #8ab4f8;
+        }
+
+        input:checked+label {
+            background: #3a3d3f;
+            border-color: #8ab4f8;
+            font-weight: 500;
+            color: #8ab4f8;
+        }
+
+        input:disabled+label {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        li label img {
+            margin: 10px 0 0 0;
+            max-width: 100%;
+            border-radius: 8px;
+        }
+
+        .image-loader {
+            display: inline-block;
+            width: 100%;
+            height: 300px;
+            background: #2d2e30;
+            border-radius: 8px;
+            margin: 10px 0 0 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #8ab4f8;
+            font-weight: 600;
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 0.6;
+            }
+
+            50% {
+                opacity: 1;
+            }
+        }
+
+        #result-msg {
+            margin-top: 25px;
+            font-size: 1.3em;
+            font-weight: 700;
+            padding: 15px 20px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        li[style*="color: green"] label {
+            color: #8bc34a;
+            font-weight: 600;
+            border-color: #8bc34a;
+        }
+
+        li.correct-answer label {
+            border: 2px solid #8bc34a;
+        }
+
+        li.wrong-answer label {
+            border: 2px solid #ef4444;
+        }
+
+        #explanation-msg {
+            margin-top: 20px;
+            padding: 18px 20px;
+            background: #2d2e30;
+            border-left: 4px solid #ff9800;
+            border-radius: 6px;
+            color: #e8e6e1;
+            line-height: 1.6;
+            font-style: normal;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        #next-btn {
+            display: block;
+            margin: 30px auto 0;
+            background: #8ab4f8;
+            color: #181a1b;
+            border: none;
+            padding: 14px 45px;
+            font-size: 1.05em;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(138, 180, 248, 0.3);
+        }
+
+        #next-btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            background: #a8c8ff;
+            box-shadow: 0 6px 20px rgba(138, 180, 248, 0.5);
+        }
+
+        #next-btn:active:not(:disabled) {
+            transform: translateY(0);
+        }
+
+        #next-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        @media (max-width: 768px) {
+            #questions-container {
+                padding: 25px;
+            }
+
+            #questions-container>div>p:first-child {
+                font-size: 1.2em;
+            }
+
+            body {
+                padding: 20px 10px;
+            }
+        }
+
+        .copyright {
+            font-size: 0.85em;
+            color: rgba(232, 230, 225, 0.3);
+            position: fixed;
+            bottom: 15px;
+            right: 20px;
+            margin: 0;
+        }
+
+        .copyright a {
+            color: rgba(232, 230, 225, 0.3);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .copyright a:hover {
+            color: rgba(232, 230, 225, 0.7);
+            text-decoration: underline;
+        }
+    </style>
+    <meta name="darkreader-lock">
+    <meta name="theme-color" content="#000">
+</head>
+
+<body>
+    <div id="questions-container"></div>
+    <button id="next-btn">Submit</button>
+    <div class="copyright"><a href="https://phoenixthrush.com" target="_blank" rel="noopener noreferrer">© 2025
+            phoenixthrush</a></div>
+    <script>
+        function shuffle(arr) {
+            return arr
+                .map(a => ({
+                    sort: Math.random(),
+                    value: a
+                }))
+                .sort((a, b) => a.sort - b.sort)
+                .map(a => a.value);
+        }
+
+        const container = document.getElementById('questions-container');
+        const nextBtn = document.getElementById('next-btn');
+
+        let questions = [];
+        let currentIndex = 0;
+        let answered = false; // tracks whether current question has been evaluated
+
+        async function loadQuestions() {
+            try {
+                const rawJson = `[
+                    {
+                        "question": "Which action is performed by a client when establishing communication with a server via the use of UDP at the transport layer?",
+                        "options": [
+                        "The client sets the window size for the session.",
+                        "The client sends an ISN to the server to start the 3-way handshake.",
+                        "The client randomly selects a source port number.",
+                        "The client sends a synchronization segment to begin the session."
+                        ],
+                        "correct_answers": [
+                        "The client randomly selects a source port number."
+                        ]
+                    },
+                    {
+                        "question": "Which transport layer feature is used to guarantee session establishment?",
+                        "options": [
+                        "UDP ACK flag",
+                        "TCP 3-way handshake",
+                        "UDP sequence number",
+                        "TCP port number"
+                        ],
+                        "correct_answers": [
+                        "TCP 3-way handshake"
+                        ]
+                    },
+                    {
+                        "question": "What is the complete range of TCP and UDP well-known ports?",
+                        "options": [
+                        "0 to 255",
+                        "0 to 1023",
+                        "256 - 1023",
+                        "1024 - 49151"
+                        ],
+                        "correct_answers": [
+                        "0 to 1023"
+                        ]
+                    },
+                    {
+                        "question": "What is a socket?",
+                        "options": [
+                        "the combination of the source and destination IP address and source and destination Ethernet address",
+                        "the combination of a source IP address and port number or a destination IP address and port number",
+                        "the combination of the source and destination sequence and acknowledgment numbers",
+                        "the combination of the source and destination sequence numbers and port numbers"
+                        ],
+                        "correct_answers": [
+                        "the combination of a source IP address and port number or a destination IP address and port number"
+                        ]
+                    },
+                    {
+                        "question": "A PC is downloading a large file from a server. The TCP window is 1000 bytes. The server is sending the file using 100-byte segments. How many segments will the server send before it requires an acknowledgment from the PC?",
+                        "options": [
+                        "1 segment",
+                        "10 segments",
+                        "100 segments",
+                        "1000 segments"
+                        ],
+                        "correct_answers": [
+                        "10 segments"
+                        ],
+                        "explanation": "With a window of 1000 bytes, the destination host accepts segments until all 1000 bytes of data have been received. Then the destination host sends an acknowledgment."
+                    },
+                    {
+                        "question": "What does a client do when it has UDP datagrams to send?",
+                        "options": [
+                        "It just sends the datagrams.",
+                        "It queries the server to see if it is ready to receive data.",
+                        "It sends a simplified three-way handshake to the server.",
+                        "It sends to the server a segment with the SYN flag set to synchronize the conversation."
+                        ],
+                        "correct_answers": [
+                        "It just sends the datagrams."
+                        ],
+                        "explanation": "When a client has UDP datagrams to send, it just sends the datagrams."
+                    },
+                    {
+                        "question": "Which three fields are used in a UDP segment header? (Choose three.)",
+                        "options": [
+                        "Window Size",
+                        "Length",
+                        "Source Port",
+                        "Acknowledgment Number",
+                        "Checksum",
+                        "Sequence Number"
+                        ],
+                        "correct_answers": [
+                        "Length",
+                        "Source Port",
+                        "Checksum"
+                        ],
+                        "explanation": "A UDP header consists of only the Source Port, Destination Port, Length, and Checksum fields. Sequence Number, Acknowledgment Number, and Window Size are TCP header fields."
+                    },
+                    {
+                        "question": "What are two roles of the transport layer in data communication on a network? (Choose two.)",
+                        "options": [
+                        "identifying the proper application for each communication stream",
+                        "tracking the individual communication between applications on the source and destination hosts",
+                        "providing frame delimiting to identify bits making up a frame",
+                        "performing a cyclic redundancy check on the frame for errors",
+                        "providing the interface between applications and the underlying network over which messages are transmitted"
+                        ],
+                        "correct_answers": [
+                        "identifying the proper application for each communication stream",
+                        "tracking the individual communication between applications on the source and destination hosts"
+                        ],
+                        "explanation": "The transport layer has several responsibilities. The primary responsibilities include the following: Tracking the individual communication streams between applications on the source and destination hosts Segmenting data at the source and reassembling the data at the destination Identifying the proper application for each communication stream through the use of port numbers"
+                    },
+                    {
+                        "question": "What information is used by TCP to reassemble and reorder received segments?",
+                        "options": [
+                        "port numbers",
+                        "sequence numbers",
+                        "acknowledgment numbers",
+                        "fragment numbers"
+                        ],
+                        "correct_answers": [
+                        "sequence numbers"
+                        ],
+                        "explanation": "At the transport layer, TCP uses the sequence numbers in the header of each TCP segment to reassemble the segments into the correct order."
+                    },
+                    {
+                        "question": "Which two characteristics are associated with UDP sessions? (Choose two.)",
+                        "options": [
+                        "Destination devices receive traffic with minimal delay.",
+                        "Transmitted data segments are tracked.",
+                        "Destination devices reassemble messages and pass them to an application.",
+                        "Received data is unacknowledged.",
+                        "Unacknowledged data packets are retransmitted."
+                        ],
+                        "correct_answers": [
+                        "Destination devices receive traffic with minimal delay.",
+                        "Received data is unacknowledged."
+                        ],
+                        "explanation": "TCP: Provides tracking of transmitted data segments Destination devices will acknowledge received data. Source devices will retransmit unacknowledged data. UDP Destination devices will not acknowledge received data Headers use very little overhead and cause minimal delay.​"
+                    },
+                    {
+                        "question": "A client application needs to terminate a TCP communication session with a server. Place the termination process steps in the order that they will occur. (Not all options are used.) Explanation: In order to terminate a TCP session, the client sends to the server a segment with the FIN flag set. The server acknowledges the client by sending a segment with the ACK flag set. The server sends a FIN to the client to terminate the server to client session. The client acknowledges the termination by sending a segment with the ACK flag set. 14. Which flag in the TCP header is used in response to a received FIN in order to terminate connectivity between two network devices?",
+                        "options": [
+                        "FIN",
+                        "ACK",
+                        "SYN",
+                        "RST"
+                        ],
+                        "correct_answers": [
+                        "ACK"
+                        ],
+                        "explanation": "In a TCP session, when a device has no more data to send, it will send a segment with the FIN flag set. The connected device that receives the segment will respond with an ACK to acknowledge that segment. The device that sent the ACK will then send a FIN message to close the connection it has with the other device. The sending of the FIN should be followed with the receipt of an ACK from the other device.​"
+                    },
+                    {
+                        "question": "What is a characteristic of UDP?",
+                        "options": [
+                        "UDP datagrams take the same path and arrive in the correct order at the destination.​",
+                        "Applications that use UDP are always considered unreliable.​",
+                        "UDP reassembles the received datagrams in the order they were received.",
+                        "UDP only passes data to the network when the destination is ready to receive the data."
+                        ],
+                        "correct_answers": [
+                        "UDP reassembles the received datagrams in the order they were received."
+                        ],
+                        "explanation": "UDP has no way to reorder the datagrams into their transmission order, so UDP simply reassembles the data in the order it was received and forwards it to the application.​"
+                    },
+                    {
+                        "question": "What kind of port must be requested from IANA in order to be used with a specific application?",
+                        "options": [
+                        "registered port",
+                        "private port",
+                        "dynamic port",
+                        "source port"
+                        ],
+                        "correct_answers": [
+                        "registered port"
+                        ],
+                        "explanation": "Registered ports (numbers 1024 to 49151) are assigned by IANA to a requesting entity to use with specific processes or applications. These processes are primarily individual applications that a user has chosen to install, rather than common applications that would receive a well-known port number. For example, Cisco has registered port 1985 for its Hot Standby Routing Protocol (HSRP) process.​"
+                    },
+                    {
+                        "question": "Which three application layer protocols use TCP? (Choose three.)",
+                        "options": [
+                        "SMTP",
+                        "FTP",
+                        "SNMP",
+                        "HTTP",
+                        "TFTP",
+                        "DHCP"
+                        ],
+                        "correct_answers": [
+                        "SMTP",
+                        "FTP",
+                        "HTTP"
+                        ],
+                        "explanation": "Some protocols require the reliable data transport that is provided by TCP. In addition, these protocols do not have real time communication requirements and can tolerate some data loss while minimizing protocol overhead. Examples of these protocols are SMTP, FTP, and HTTP."
+                    },
+                    {
+                        "question": "Which three statements characterize UDP? (Choose three.)",
+                        "options": [
+                        "UDP provides basic connectionless transport layer functions.",
+                        "UDP provides connection-oriented, fast transport of data at Layer 3.",
+                        "UDP relies on application layer protocols for error detection.",
+                        "UDP is a low overhead protocol that does not provide sequencing or flow control mechanisms.",
+                        "UDP relies on IP for error detection and recovery.",
+                        "UDP provides sophisticated flow control mechanisms."
+                        ],
+                        "correct_answers": [
+                        "UDP provides basic connectionless transport layer functions.",
+                        "UDP relies on application layer protocols for error detection.",
+                        "UDP is a low overhead protocol that does not provide sequencing or flow control mechanisms."
+                        ],
+                        "explanation": "UDP is a simple protocol that provides the basic transport layer functions. It has much lower overhead than TCP because it is not connection-oriented and does not offer the sophisticated retransmission, sequencing, and flow control mechanisms that provide reliability."
+                    },
+                    {
+                        "question": "Which field in the TCP header indicates the status of the three-way handshake process?",
+                        "options": [
+                        "window",
+                        "reserved",
+                        "checksum",
+                        "control bits"
+                        ],
+                        "correct_answers": [
+                        "control bits"
+                        ],
+                        "explanation": "The value in the control bits field of theTCP header indicates the progress and status of the connection."
+                    },
+                    {
+                        "question": "Why does HTTP use TCP as the transport layer protocol?",
+                        "options": [
+                        "to ensure the fastest possible download speed",
+                        "because HTTP is a best-effort protocol",
+                        "because transmission errors can be tolerated easily",
+                        "because HTTP requires reliable delivery"
+                        ],
+                        "correct_answers": [
+                        "because HTTP requires reliable delivery"
+                        ],
+                        "explanation": "When a host requests a web page, transmission reliability and completeness must be guaranteed. Therefore, HTTP uses TCP as its transport layer protocol."
+                    },
+                    {
+                        "question": "How are port numbers used in the TCP/IP encapsulation process?",
+                        "options": [
+                        "Source port numbers and destination port numbers are not necessary when UDP is the transport layer protocol being used for the communication.",
+                        "Source port and destination port numbers are randomly generated.",
+                        "If multiple conversations occur that are using the same service, the source port number is used to track the separate conversations.",
+                        "Destination port numbers are assigned automatically and cannot be changed."
+                        ],
+                        "correct_answers": [
+                        "If multiple conversations occur that are using the same service, the source port number is used to track the separate conversations."
+                        ],
+                        "explanation": "Both UDP and TCP use port numbers to provide a unique identifier for each conversation. Source port numbers are randomly generated and are used to track different conversations. Destination port numbers identify specific services by using either a default port number for the service or a port number that is assigned manually by a system administrator."
+                    },
+                    {
+                        "question": "In what two situations would UDP be better than TCP as the preferred transport protocol? (Choose two.)",
+                        "options": [
+                        "when applications need to guarantee that a packet arrives intact, in sequence, and unduplicated",
+                        "when a faster delivery mechanism is needed",
+                        "when delivery overhead is not an issue",
+                        "when applications do not need to guarantee delivery of the data",
+                        "when destination port numbers are dynamic"
+                        ],
+                        "correct_answers": [
+                        "when a faster delivery mechanism is needed",
+                        "when applications do not need to guarantee delivery of the data"
+                        ],
+                        "explanation": "UDP is a very simple transport layer protocol that does not guarantee delivery. Devices on both ends of the conversation are not required to keep track of the conversation. UDP is used as the transport protocol for applications that need a speedy, best-effort delivery."
+                    },
+                    {
+                        "question": "What are three responsibilities of the transport layer? (Choose three.)",
+                        "options": [
+                        "meeting the reliability requirements of applications, if any",
+                        "multiplexing multiple communication streams from many users or applications on the same network",
+                        "identifying the applications and services on the client and server that should handle transmitted data",
+                        "directing packets towards the destination network",
+                        "formatting data into a compatible form for receipt by the destination devices",
+                        "conducting error detection of the contents in frames"
+                        ],
+                        "correct_answers": [
+                        "meeting the reliability requirements of applications, if any",
+                        "multiplexing multiple communication streams from many users or applications on the same network",
+                        "identifying the applications and services on the client and server that should handle transmitted data"
+                        ],
+                        "explanation": "The transport layer has several responsibilities. Some of the primary responsibilities include the following: Tracking the individual communication streams between applications on the source and destination hosts Segmenting data at the source and reassembling the data at the destination Identifying the proper application for each communication stream through the use of port numbers Multiplexing the communications of multiple users or applications over a single network Managing the reliability requirements of applications"
+                    },
+                    {
+                        "question": "Which two protocols may devices use in the application process that sends email? (Choose two.)",
+                        "options": [
+                        "HTTP",
+                        "SMTP",
+                        "POP",
+                        "IMAP",
+                        "DNS",
+                        "POP3"
+                        ],
+                        "correct_answers": [
+                        "SMTP",
+                        "DNS"
+                        ],
+                        "explanation": "POP, POP3, and IMAP are protocols that are used to retrieve email from servers. SMTP is the default protocol that is used to send email. DNS may be used by the sender email server to find the address of the destination email server."
+                    },
+                    {
+                        "question": "What is true about the Server Message Block protocol?",
+                        "options": [
+                        "Different SMB message types have a different format.",
+                        "Clients establish a long term connection to servers.",
+                        "SMB messages cannot authenticate a session.",
+                        "SMB uses the FTP protocol for communication."
+                        ],
+                        "correct_answers": [
+                        "Clients establish a long term connection to servers."
+                        ],
+                        "explanation": "The Server Message Block protocol is a protocol for file, printer, and directory sharing. Clients establish a long term connection to servers and when the connection is active, the resources can be accessed. Every SMB message has the same format. The use of SMB differs from FTP mainly in the length of the sessions. SMB messages can authenticate sessions."
+                    },
+                    {
+                        "question": "What is the function of the HTTP GET message?",
+                        "options": [
+                        "to request an HTML page from a web server",
+                        "to send error information from a web server to a web client",
+                        "to upload content to a web server from a web client",
+                        "to retrieve client email from an email server using TCP port 110"
+                        ],
+                        "correct_answers": [
+                        "to request an HTML page from a web server"
+                        ],
+                        "explanation": "There are three common HTTP message types: GET - used by clients to request data from the web server POST - used by clients to upload data to a web server PUT - used by clients to upload data to a web server"
+                    },
+                    {
+                        "question": "Which OSI layer provides the interface between the applications used to communicate and the underlying network over which messages are transmitted?",
+                        "options": [
+                        "application",
+                        "presentation",
+                        "session",
+                        "transport"
+                        ],
+                        "correct_answers": [
+                        "application"
+                        ],
+                        "explanation": "The application layer is the layer that is closest to the end user and provides the interface between the underlying network and the applications used to communicate."
+                    },
+                    {
+                        "question": "Which networking model is being used when an author uploads one chapter document to a file server of a book publisher?",
+                        "options": [
+                        "peer-to-peer",
+                        "master-slave",
+                        "client/server",
+                        "point-to-point"
+                        ],
+                        "correct_answers": [
+                        "client/server"
+                        ],
+                        "explanation": "In the client/server network model, a network device assumes the role of server in order to provide a particular service such as file transfer and storage. In the client/server network model, a dedicated server does not have to be used, but if one is present, the network model being used is the client/server model. In contrast, a peer-to-peer network does not have a dedicated server."
+                    },
+                    {
+                        "question": "What do the client/server and peer-to-peer network models have in common?",
+                        "options": [
+                        "Both models have dedicated servers.",
+                        "Both models support devices in server and client roles.",
+                        "Both models require the use of TCP/IP-based protocols.",
+                        "Both models are used only in the wired network environment."
+                        ],
+                        "correct_answers": [
+                        "Both models support devices in server and client roles."
+                        ],
+                        "explanation": "In both the client/server and peer-to-peer network models, clients and servers exist. In peer-to-peer networks, no dedicated server exists, but a device can assume the server role to provide information to a device serving in the client role."
+                    },
+                    {
+                        "question": "In what networking model would eDonkey, eMule, BitTorrent, Bitcoin, and LionShare be used?",
+                        "options": [
+                        "peer-to-peer",
+                        "client-based",
+                        "master-slave",
+                        "point-to-point"
+                        ],
+                        "correct_answers": [
+                        "peer-to-peer"
+                        ],
+                        "explanation": "In a peer-to-peer networking model, data is exchanged between two network devices without the use of a dedicated server. Peer-to-peer applications such as Shareaz, eDonkey, and Bitcoin allow one network device to assume the role of server, while one or more other network devices assume the role of client using the peer-to-peer application."
+                    },
+                    {
+                        "question": "What is a common protocol that is used with peer-to-peer applications such as WireShare, Bearshare, and Shareaza?",
+                        "options": [
+                        "Ethernet",
+                        "Gnutella",
+                        "POP",
+                        "SMTP"
+                        ],
+                        "correct_answers": [
+                        "Gnutella"
+                        ],
+                        "explanation": "The Gnutella protocol is used when one user shares an entire file with another user. A person would load a Gnutella-based application such as gtk-gnutella or WireShare and use that application to locate and access resources shared by others."
+                    },
+                    {
+                        "question": "The application layer of the TCP/IP model performs the functions of what three layers of the OSI model? (Choose three.)",
+                        "options": [
+                        "physical",
+                        "session",
+                        "network",
+                        "presentation",
+                        "data link",
+                        "transport",
+                        "application"
+                        ],
+                        "correct_answers": [
+                        "session",
+                        "presentation",
+                        "application"
+                        ],
+                        "explanation": "The network access layer of the TCP/IP model performs the same functions as the physical and data link layers of the OSI model. The internetwork layer equates to the network layer of the OSI model. The transport layers are the same in both models. The application layer of the TCP/IP model represents the session, presentation, and application layers of the OSI model.​"
+                    },
+                    {
+                        "question": "What is an example of network communication that uses the client-server model?",
+                        "options": [
+                        "A user uses eMule to download a file that is shared by a friend after the file location is determined.",
+                        "A workstation initiates an ARP to find the MAC address of a receiving host.",
+                        "A user prints a document by using a printer that is attached to a workstation of a coworker.",
+                        "A workstation initiates a DNS request when the user types www.cisco.com in the address bar of a web browser."
+                        ],
+                        "correct_answers": [
+                        "A workstation initiates a DNS request when the user types www.cisco.com in the address bar of a web browser."
+                        ],
+                        "explanation": "When a user types a domain name of a website into the address bar of a web browser, a workstation needs to send a DNS request to the DNS server for the name resolution process. This request is a client/server model application. The eMule application is P2P. Sharing a printer on a workstation is a peer-to-peer network. Using ARP is just a broadcast message sent by a host."
+                    },
+                    {
+                        "question": "Which layer in the TCP/IP model is used for formatting, compressing, and encrypting data?",
+                        "options": [
+                        "internetwork",
+                        "session",
+                        "presentation",
+                        "application",
+                        "network access"
+                        ],
+                        "correct_answers": [
+                        "application"
+                        ],
+                        "explanation": "The application layer of the TCP/IP model performs the functions of three layers of the OSI model - application, presentation, and session. The application layer of the TCP/IP model is the layer that provides the interface between the applications, is responsible for formatting, compressing, and encrypting data, and is used to create and maintain dialogs between source and destination applications."
+                    },
+                    {
+                        "question": "What is an advantage of SMB over FTP?​",
+                        "options": [
+                        "Only with SMB can data transfers occur in both directions.",
+                        "Only SMB establishes two simultaneous connections with the client, making the data transfer faster.​",
+                        "SMB is more reliable than FTP because SMB uses TCP and FTP uses UDP.​",
+                        "SMB clients can establish a long-term connection to the server.​"
+                        ],
+                        "correct_answers": [
+                        "SMB clients can establish a long-term connection to the server.​"
+                        ],
+                        "explanation": "SMB and FTP are client/server protocols that are used for file transfer. SMB allows the connecting device to access resources as if they were on the local client device. SMB and FTP use the TCP protocol for connection establishment and they can transfer data in both directions. FTP requires two connections between the client and the server, one for commands and replies, the other for the actual file transfer."
+                    },
+                    {
+                        "question": "A manufacturing company subscribes to certain hosted services from its ISP. The services that are required include hosted world wide web, file transfer, and e-mail. Which protocols represent these three key applications? (Choose three.)",
+                        "options": [
+                        "FTP",
+                        "HTTP",
+                        "DNS",
+                        "SNMP",
+                        "DHCP",
+                        "SMTP"
+                        ],
+                        "correct_answers": [
+                        "FTP",
+                        "HTTP",
+                        "SMTP"
+                        ],
+                        "explanation": "The ISP uses the HTTP protocol in conjunction with hosting web pages, the FTP protocol with file transfers, and SMTP with e-mail. DNS is used to translate domain names to IP addresses. SNMP is used for network management traffic. DHCP ic commonly used to manage IP addressing."
+                    },
+                    {
+                        "question": "What type of information is contained in a DNS MX record?",
+                        "options": [
+                        "the FQDN of the alias used to identify a service",
+                        "the IP address for an FQDN entry",
+                        "the domain name mapped to mail exchange servers",
+                        "the IP address of an authoritative name server"
+                        ],
+                        "correct_answers": [
+                        "the domain name mapped to mail exchange servers"
+                        ],
+                        "explanation": "MX, or mail exchange messages, are used to map a domain name to several mail exchange servers that all belong to the same domain."
+                    },
+                    {
+                        "question": "Which three protocols operate at the application layer of the TCP/IP model? (Choose three.)",
+                        "options": [
+                        "ARP",
+                        "TCP",
+                        "UDP",
+                        "FTP",
+                        "POP3",
+                        "DHCP"
+                        ],
+                        "correct_answers": [
+                        "FTP",
+                        "POP3",
+                        "DHCP"
+                        ],
+                        "explanation": "FTP, DHCP, and POP3 are application layer protocols. TCP and UDP are transport layer protocols. ARP is a network layer protocol."
+                    },
+                    {
+                        "question": "Which protocol is used by a client to communicate securely with a web server?",
+                        "options": [
+                        "SMTP",
+                        "SMB",
+                        "IMAP",
+                        "HTTPS"
+                        ],
+                        "correct_answers": [
+                        "HTTPS"
+                        ],
+                        "explanation": "HTTPS is a secure form of HTTP used to access web content hosted by a web server."
+                    },
+                    {
+                        "question": "Which applications or services allow hosts to act as client and server at the same time?",
+                        "options": [
+                        "client/server applications",
+                        "email applications",
+                        "P2P applications",
+                        "authentication services"
+                        ],
+                        "correct_answers": [
+                        "P2P applications"
+                        ],
+                        "explanation": "P2P applications allow the clients to behave as servers if needed. When using authentication services, email exchange, and client/server applications, one host acts as server and the other acts as client at all times."
+                    },
+                    {
+                        "question": "Which scenario describes a function provided by the transport layer?",
+                        "options": [
+                        "A student is using a classroom VoIP phone to call home. The unique identifier burned into the phone is a transport layer address used to contact another network device on the same network.",
+                        "A student is playing a short web-based movie with sound. The movie and sound are encoded within the transport layer header.",
+                        "A student has two web browser windows open in order to access two web sites. The transport layer ensures the correct web page is delivered to the correct browser window.",
+                        "A corporate worker is accessing a web server located on a corporate network. The transport layer formats the screen so the web page appears properly no matter what device is being used to view the web site."
+                        ],
+                        "correct_answers": [
+                        "A student has two web browser windows open in order to access two web sites. The transport layer ensures the correct web page is delivered to the correct browser window."
+                        ],
+                        "explanation": "The source and destination port numbers are used to identify the correct application and window within that application."
+                    },
+                    {
+                        "question": "Which three layers of the OSI model provide similar network services to those provided by the application layer of the TCP/IP model? (Choose three.)",
+                        "options": [
+                        "physical layer",
+                        "session layer",
+                        "transport layer",
+                        "application layer",
+                        "presentation layer",
+                        "data link layer"
+                        ],
+                        "correct_answers": [
+                        "session layer",
+                        "application layer",
+                        "presentation layer"
+                        ],
+                        "explanation": "The three upper layers of the OSI model, the session, presentation, and application layers, provide application services similar to those provided by the TCP/IP model application layer. Lower layers of the OSI model are more concerned with data flow."
+                    },
+                    {
+                        "question": "A PC that is communicating with a web server has a TCP window size of 6,000 bytes when sending data and a packet size of 1,500 bytes. Which byte of information will the web server acknowledge after it has received two packets of data from the PC?",
+                        "options": [
+                        "3001",
+                        "6001",
+                        "4500",
+                        "6000"
+                        ],
+                        "correct_answers": [
+                        "3001"
+                        ]
+                    },
+                    {
+                        "question": "A PC that is communicating with a web server has a TCP window size of 6,000 bytes when sending data and a packet size of 1,500 bytes. Which byte of information will the web server acknowledge after it has received three packets of data from the PC?",
+                        "options": [
+                        "4501",
+                        "6001",
+                        "6000",
+                        "4500"
+                        ],
+                        "correct_answers": [
+                        "4501"
+                        ]
+                    },
+                    {
+                        "question": "A PC that is communicating with a web server has a TCP window size of 6,000 bytes when sending data and a packet size of 1,500 bytes. Which byte of information will the web server acknowledge after it has received four packets of data from the PC?",
+                        "options": [
+                        "6001",
+                        "3001",
+                        "1501",
+                        "1500"
+                        ],
+                        "correct_answers": [
+                        "6001"
+                        ]
+                    },
+                    {
+                        "question": "A client creates a packet to send to a server. The client is requesting TFTP service. What number will be used as the destination port number in the sending packet?",
+                        "options": [
+                        "69",
+                        "67",
+                        "53",
+                        "80"
+                        ],
+                        "correct_answers": [
+                        "69"
+                        ]
+                    },
+                    {
+                        "question": "A client creates a packet to send to a server. The client is requesting FTP service. What number will be used as the destination port number in the sending packet?",
+                        "options": [
+                        "21",
+                        "69",
+                        "67",
+                        "80"
+                        ],
+                        "correct_answers": [
+                        "21"
+                        ]
+                    },
+                    {
+                        "question": "A client creates a packet to send to a server. The client is requesting SSH service. What number will be used as the destination port number in the sending packet?",
+                        "options": [
+                        "22",
+                        "69",
+                        "67",
+                        "80"
+                        ],
+                        "correct_answers": [
+                        "22"
+                        ]
+                    },
+                    {
+                        "question": "A client creates a packet to send to a server. The client is requesting HTTP service. What number will be used as the destination port number in the sending packet?",
+                        "options": [
+                        "80",
+                        "67",
+                        "53",
+                        "69"
+                        ],
+                        "correct_answers": [
+                        "80"
+                        ]
+                    },
+                    {
+                        "question": "A client creates a packet to send to a server. The client is requesting POP3 service. What number will be used as the destination port number in the sending packet?",
+                        "options": [
+                        "110",
+                        "67",
+                        "53",
+                        "69",
+                        "443",
+                        "161",
+                        "80"
+                        ],
+                        "correct_answers": [
+                        "110"
+                        ]
+                    },
+                    {
+                        "question": "A client creates a packet to send to a server. The client is requesting telnet service. What number will be used as the destination port number in the sending packet?",
+                        "options": [
+                        "23",
+                        "443",
+                        "161",
+                        "110"
+                        ],
+                        "correct_answers": [
+                        "23"
+                        ]
+                    },
+                    {
+                        "question": "A client creates a packet to send to a server. The client is requesting SNMP service. What number will be used as the destination port number in the sending packet?",
+                        "options": [
+                        "161",
+                        "443",
+                        "110",
+                        "80"
+                        ],
+                        "correct_answers": [
+                        "161"
+                        ]
+                    },
+                    {
+                        "question": "A client creates a packet to send to a server. The client is requesting SMTP service. What number will be used as the destination port number in the sending packet?",
+                        "options": [
+                        "25",
+                        "443",
+                        "161",
+                        "110"
+                        ],
+                        "correct_answers": [
+                        "25"
+                        ]
+                    },
+                    {
+                        "question": "A client creates a packet to send to a server. The client is requesting HTTPS service. What number will be used as the destination port number in the sending packet?",
+                        "options": [
+                        "443",
+                        "161",
+                        "110",
+                        "80"
+                        ],
+                        "correct_answers": [
+                        "443"
+                        ],
+                        "explanation": "The Server Message Block protocol is a protocol for file, printer, and directory sharing. Clients establish a long term connection to servers and when the connection is active, the resources can be accessed. Every SMB message has the same format. The use of SMB differs from FTP mainly in the length of the sessions. SMB messages can authenticate sessions."
+                    }
+                    ]`; // put JSON here if you want to embed it
+
+                // 1. If raw JSON exists, parse it instead of fetching
+                if (rawJson.trim().length > 0) {
+                    console.log("Using embedded JSON content");
+
+                    let data;
+                    try {
+                        data = JSON.parse(rawJson);
+                    } catch (e) {
+                        container.textContent = 'Invalid embedded JSON.';
+                        console.error(e);
+                        return;
+                    }
+
+                    if (!Array.isArray(data)) {
+                        container.textContent = 'Invalid JSON: expected an array of questions.';
+                        return;
+                    }
+
+                    questions = shuffle(data);
+                    questions.forEach(q => {
+                        if (Array.isArray(q.options)) {
+                            q.options = shuffle(q.options);
+                        }
+                    });
+
+                    showQuestion();
+                    return;
+                }
+
+                // 2. Otherwise fetch JSON normally
+                console.log("Fetching JSON file");
+                const res = await fetch('./ccna-1-v7-modules-14-15.json');
+                if (!res.ok) throw new Error(`HTTP ${res.status}`);
+
+                const data = await res.json();
+                if (!Array.isArray(data)) {
+                    container.textContent = 'Invalid JSON: expected an array of questions.';
+                    return;
+                }
+
+                questions = shuffle(data);
+                questions.forEach(q => {
+                    if (Array.isArray(q.options)) {
+                        q.options = shuffle(q.options);
+                    }
+                });
+
+                showQuestion();
+
+            } catch (err) {
+                container.textContent = 'Error loading JSON: ' + err.message;
+                console.error(err);
+            }
+        }
+
+
+        function showQuestion() {
+            container.innerHTML = '';
+            answered = false;
+            nextBtn.textContent = 'Submit';
+
+            if (currentIndex >= questions.length) {
+                container.textContent = 'No more questions.';
+                nextBtn.disabled = true;
+                return;
+            }
+
+            const q = questions[currentIndex];
+
+            const wrapper = document.createElement('div');
+            const title = document.createElement('p');
+            title.textContent = q.question || q.title || `Item ${currentIndex + 1}`;
+            wrapper.appendChild(title);
+
+            // Display image_url if present
+            if (q.image_url) {
+                const loaderDiv = document.createElement('div');
+                loaderDiv.className = 'image-loader';
+                loaderDiv.textContent = 'Loading image...';
+                loaderDiv.id = 'main-loader';
+                wrapper.appendChild(loaderDiv);
+
+                const img = document.createElement('img');
+                img.src = q.image_url;
+                img.style.maxWidth = '100%';
+                img.style.maxHeight = '500px';
+                img.style.marginBottom = '20px';
+                img.style.display = 'none';
+
+                img.onload = () => {
+                    loaderDiv.style.display = 'none';
+                    img.style.display = 'block';
+                };
+
+                img.onerror = () => {
+                    loaderDiv.textContent = 'Failed to load image';
+                    loaderDiv.style.color = '#ef4444';
+                };
+
+                wrapper.appendChild(img);
+            }
+
+            const isMultiple = q.correct_answers && q.correct_answers.length > 1;
+
+            if (q.options && Array.isArray(q.options)) {
+                const list = document.createElement('ul');
+
+                q.options.forEach((opt, i) => {
+                    const li = document.createElement('li');
+                    li.id = `li-${i}`;
+
+                    // Check if option is an image URL
+                    if (typeof opt === 'string' && (opt.endsWith('.png') || opt.endsWith('.jpg') || opt.endsWith('.jpeg') || opt.startsWith('http'))) {
+                        const input = document.createElement('input');
+                        input.type = isMultiple ? 'checkbox' : 'radio';
+                        input.name = 'answer';
+                        input.value = opt;
+                        input.id = `opt-${i}`;
+                        input.dataset.isImage = 'true'; // Mark this as an image option
+
+                        const label = document.createElement('label');
+                        label.setAttribute('for', `opt-${i}`);
+
+                        const loader = document.createElement('div');
+                        loader.className = 'image-loader';
+                        loader.textContent = 'Loading image...';
+                        loader.id = `loader-${i}`;
+
+                        const img = document.createElement('img');
+                        img.src = opt;
+                        img.style.maxWidth = '100%';
+                        img.style.maxHeight = '300px';
+                        img.style.marginTop = '10px';
+                        img.style.cursor = 'pointer';
+                        img.style.display = 'none';
+
+                        img.onload = () => {
+                            loader.style.display = 'none';
+                            img.style.display = 'block';
+                        };
+
+                        img.onerror = () => {
+                            loader.textContent = 'Failed to load image';
+                            loader.style.color = '#ef4444';
+                        };
+
+                        label.appendChild(loader);
+                        label.appendChild(img);
+
+                        li.appendChild(input);
+                        li.appendChild(label);
+                    } else {
+                        const input = document.createElement('input');
+                        input.type = isMultiple ? 'checkbox' : 'radio';
+                        input.name = 'answer';
+                        input.value = opt;
+                        input.id = `opt-${i}`;
+
+                        const label = document.createElement('label');
+                        label.setAttribute('for', `opt-${i}`);
+                        label.textContent = opt;
+
+                        li.appendChild(input);
+                        li.appendChild(label);
+                    }
+                    list.appendChild(li);
+                });
+
+                wrapper.appendChild(list);
+            }
+
+            // Auto-select image options on load
+            const imageInputs = document.querySelectorAll('input[data-is-image="true"]');
+            if (imageInputs.length > 0) {
+                imageInputs.forEach(input => {
+                    input.checked = true;
+                });
+            }
+
+            const explanation = document.createElement('p');
+            explanation.id = 'explanation-msg';
+            explanation.style.display = 'none';
+            wrapper.appendChild(explanation);
+
+            const result = document.createElement('p');
+            result.id = 'result-msg';
+            wrapper.appendChild(result);
+
+            const counter = document.createElement('div');
+            counter.className = 'question-counter';
+            counter.textContent = `${currentIndex + 1} / ${questions.length}`;
+            wrapper.appendChild(counter);
+
+            container.appendChild(wrapper);
+        }
+
+        nextBtn.addEventListener('click', () => {
+            const q = questions[currentIndex];
+            const inputs = document.querySelectorAll('input[name="answer"]');
+            const resultMsg = document.getElementById('result-msg');
+            const explanationMsg = document.getElementById('explanation-msg');
+
+            // If we've already evaluated this question, treat the button as "continue/next"
+            if (answered) {
+                currentIndex++;
+                showQuestion();
+                return;
+            }
+
+            let chosen = [];
+            inputs.forEach(i => {
+                if (i.checked) chosen.push(i.value);
+            });
+
+            if (chosen.length === 0) {
+                resultMsg.textContent = 'Please choose an answer.';
+                return;
+            }
+
+            const correct = Array.isArray(q.correct_answers) &&
+                chosen.length === q.correct_answers.length &&
+                chosen.every(a => q.correct_answers.includes(a));
+
+            // Disable inputs to lock the answer after submission
+            inputs.forEach(i => i.disabled = true);
+
+            if (!correct) {
+                // Mark correct answers with green border and wrong answers with red border
+                q.options.forEach((opt, index) => {
+                    const li = document.getElementById(`li-${index}`);
+                    const isCorrect = q.correct_answers.includes(opt);
+                    const isChosen = chosen.includes(opt);
+
+                    if (isCorrect) {
+                        li.classList.add('correct-answer');
+                        li.style.color = '#8bc34a';
+                    }
+                    if (isChosen && !isCorrect) {
+                        li.classList.add('wrong-answer');
+                    }
+                });
+
+                resultMsg.textContent = 'Wrong!';
+
+                // Always show explanation if wrong (or a fallback message)
+                explanationMsg.style.display = 'block';
+                explanationMsg.textContent = q.explanation ? q.explanation : 'No explanation available for this question.';
+
+                // Change button label to Continue (single button only)
+                nextBtn.textContent = 'Continue';
+                answered = true; // next click will advance
+            } else {
+                resultMsg.textContent = 'Correct!';
+
+                // Keep single button labelled 'Submit' but mark that question was answered so next press advances
+                answered = true;
+                // Optionally highlight correct choices (not requested) - left out
+            }
+        });
+
+        // Keyboard event listener for Space or Enter
+        document.addEventListener('keydown', (e) => {
+            if (e.code === 'Space' || e.code === 'Enter') {
+                e.preventDefault();
+                nextBtn.click();
+            }
+        });
+
+        loadQuestions();
+
+        document.addEventListener('keydown', (e) => {
+            const keys = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'];
+            if (!keys.includes(e.key)) return;
+
+            const index = e.key === '0' ? 9 : parseInt(e.key, 10) - 1;
+            const li = document.getElementById(`li-${index}`);
+            if (!li) return;
+
+            const label = li.querySelector('label');
+            if (label) {
+                e.preventDefault();
+                label.click();
+            }
+        });
+    </script>
+</body>
+
+</html>
