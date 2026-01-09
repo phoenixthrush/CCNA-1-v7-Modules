@@ -255,7 +255,7 @@
     "correct_answers": [
       "Issue the ping command without specifying a destination IP address."
     ],
-    "explanation": "By issuing the ping command without a destination IP address in privileged EXEC mode, the Cisco IOS enters extended ping mode. This allows the user to implement extended commands which include source IP address.​"
+    "explanation": "By issuing the ping command without a destination IP address in privileged EXEC mode, the Cisco IOS enters extended ping mode. This allows the user to implement extended commands which include source IP address."
   },
   {
     "question": "A network engineer is analyzing reports from a recently performed network baseline. Which situation would depict a possible latency issue?",
@@ -268,15 +268,15 @@
     "correct_answers": [
       "an increase in host-to-host ping response times"
     ],
-    "explanation": "While analyzing historical reports an administrator can compare host-to-host timers from the ping command and depict possible latency issues.​"
+    "explanation": "While analyzing historical reports an administrator can compare host-to-host timers from the ping command and depict possible latency issues."
   },
   {
-    "question": "Which statement is true about Cisco IOS ping indicators?​",
+    "question": "Which statement is true about Cisco IOS ping indicators?",
     "options": [
       "‘!’ indicates that the ping was unsuccessful and that the device may have issues finding a DNS server.",
       "‘U’ may indicate that a router along the path did not contain a route to the destination address and that the ping was unsuccessful.",
       "‘.’ indicates that the ping was successful but the response time was longer than normal.",
-      "A combination of ‘.’ and ‘!’ indicates that a router along the path did not have a route to the destination address and responded with an ICMP unreachable message.​"
+      "A combination of ‘.’ and ‘!’ indicates that a router along the path did not have a route to the destination address and responded with an ICMP unreachable message."
     ],
     "correct_answers": [
       "‘U’ may indicate that a router along the path did not contain a route to the destination address and that the ping was unsuccessful."
@@ -366,7 +366,7 @@
     "options": [
       "debug all",
       "logging synchronous",
-      "show running-config​",
+      "show running-config",
       "terminal monitor"
     ],
     "correct_answers": [
@@ -770,14 +770,14 @@
   {
     "question": "What is a characteristic of UDP?",
     "options": [
-      "UDP datagrams take the same path and arrive in the correct order at the destination.​",
-      "Applications that use UDP are always considered unreliable.​",
+      "UDP datagrams take the same path and arrive in the correct order at the destination.",
+      "Applications that use UDP are always considered unreliable.",
       "UDP reassembles the received datagrams in the order they were received.",
       "UDP only passes data to the network when the destination is ready to receive the data."
     ],
     "correct_answers": [
       "UDP reassembles the received datagrams in the order they were received."
     ],
-    "explanation": "UDP has no way to reorder the datagrams into their transmission order, so UDP simply reassembles the data in the order it was received and forwards it to the application.​"
+    "explanation": "UDP has no way to reorder the datagrams into their transmission order, so UDP simply reassembles the data in the order it was received and forwards it to the application."
   }
 ]

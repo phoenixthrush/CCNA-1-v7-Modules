@@ -73,15 +73,15 @@
     "explanation": "IP protocol is a connection-less protocol, considered unreliable in terms of end-to-end delivery. It does not provide error control in the cases where receiving packets are out-of-order or in cases of missing packets. It relies on upper layer services, such as TCP, to resolve these issues."
   },
   {
-    "question": "Why is NAT not needed in IPv6?​",
+    "question": "Why is NAT not needed in IPv6?",
     "options": [
-      "Because IPv6 has integrated security, there is no need to hide the IPv6 addresses of internal networks.​",
-      "Any host or user can get a public IPv6 network address because the number of available IPv6 addresses is extremely large.​",
-      "The problems that are induced by NAT applications are solved because the IPv6 header improves packet handling by intermediate routers.​",
+      "Because IPv6 has integrated security, there is no need to hide the IPv6 addresses of internal networks.",
+      "Any host or user can get a public IPv6 network address because the number of available IPv6 addresses is extremely large.",
+      "The problems that are induced by NAT applications are solved because the IPv6 header improves packet handling by intermediate routers.",
       "The end-to-end connectivity problems that are caused by NAT are solved because the number of routes increases with the number of nodes that are connected to the Internet."
     ],
     "correct_answers": [
-      "Any host or user can get a public IPv6 network address because the number of available IPv6 addresses is extremely large.​"
+      "Any host or user can get a public IPv6 network address because the number of available IPv6 addresses is extremely large."
     ],
     "explanation": "The large number of public IPv6 addresses eliminates the need for NAT. Sites from the largest enterprises to single households can get public IPv6 network addresses. This avoids some of the NAT-induced application problems that are experienced by applications that require end-to-end connectivity."
   },
@@ -207,13 +207,13 @@
   {
     "question": "How do hosts ensure that their packets are directed to the correct network destination?",
     "options": [
-      "They have to keep their own local routing table that contains a route to the loopback interface, a local network route, and a remote default route.​",
+      "They have to keep their own local routing table that contains a route to the loopback interface, a local network route, and a remote default route.",
       "They always direct their packets to the default gateway, which will be responsible for the packet delivery.",
       "They search in their own local routing table for a route to the network destination address and pass this information to the default gateway.",
       "They send a query packet to the default gateway asking for the best route."
     ],
     "correct_answers": [
-      "They have to keep their own local routing table that contains a route to the loopback interface, a local network route, and a remote default route.​"
+      "They have to keep their own local routing table that contains a route to the loopback interface, a local network route, and a remote default route."
     ],
     "explanation": "Hosts must maintain their own local routing table to ensure that network layer packets are directed to the correct destination network. This local table typically contains a route to the loopback interface, a route to the network that the host is connected to, and a local default route, which represents the route that packets must take to reach all remote network addresses."
   },

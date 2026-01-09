@@ -30,11 +30,11 @@
     "options": [
       "255.255.255.0",
       "255.255.255.128",
-      "255.255.255.224​",
+      "255.255.255.224",
       "255.255.255.240"
     ],
     "correct_answers": [
-      "255.255.255.224​"
+      "255.255.255.224"
     ]
   },
   {
@@ -377,15 +377,15 @@
     "explanation": "The network portion, or prefix, of an IPv6 address is identified through the prefix length. A /64 prefix length indicates that the first 64 bits of the IPv6 address is the network portion. Hence the prefix is 2001:DB8:BC15:A."
   },
   {
-    "question": "An IPv6 enabled device sends a data packet with the destination address of FF02::1. What is the target of this packet?​",
+    "question": "An IPv6 enabled device sends a data packet with the destination address of FF02::1. What is the target of this packet?",
     "options": [
       "the one IPv6 device on the link that has been uniquely configured with this address",
-      "all IPv6 enabled devices on the local link​ or network",
-      "only IPv6 DHCP servers​",
+      "all IPv6 enabled devices on the local link or network",
+      "only IPv6 DHCP servers",
       "only IPv6 configured routers"
     ],
     "correct_answers": [
-      "all IPv6 enabled devices on the local link​ or network"
+      "all IPv6 enabled devices on the local link or network"
     ],
     "explanation": "This address is one of the assigned IPv6 multicast addresses. Packets addressed to FF02::1 are for all IPv6 enabled devices on the link or network. FF02::2 is for all IPv6 routers that exist on the network."
   },

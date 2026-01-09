@@ -131,7 +131,7 @@
       "Destination devices receive traffic with minimal delay.",
       "Received data is unacknowledged."
     ],
-    "explanation": "TCP: Provides tracking of transmitted data segments Destination devices will acknowledge received data. Source devices will retransmit unacknowledged data. UDP Destination devices will not acknowledge received data Headers use very little overhead and cause minimal delay.​"
+    "explanation": "TCP: Provides tracking of transmitted data segments Destination devices will acknowledge received data. Source devices will retransmit unacknowledged data. UDP Destination devices will not acknowledge received data Headers use very little overhead and cause minimal delay."
   },
   {
     "question": "A client application needs to terminate a TCP communication session with a server. Place the termination process steps in the order that they will occur. (Not all options are used.) Explanation: In order to terminate a TCP session, the client sends to the server a segment with the FIN flag set. The server acknowledges the client by sending a segment with the ACK flag set. The server sends a FIN to the client to terminate the server to client session. The client acknowledges the termination by sending a segment with the ACK flag set. 14. Which flag in the TCP header is used in response to a received FIN in order to terminate connectivity between two network devices?",
@@ -144,20 +144,20 @@
     "correct_answers": [
       "ACK"
     ],
-    "explanation": "In a TCP session, when a device has no more data to send, it will send a segment with the FIN flag set. The connected device that receives the segment will respond with an ACK to acknowledge that segment. The device that sent the ACK will then send a FIN message to close the connection it has with the other device. The sending of the FIN should be followed with the receipt of an ACK from the other device.​"
+    "explanation": "In a TCP session, when a device has no more data to send, it will send a segment with the FIN flag set. The connected device that receives the segment will respond with an ACK to acknowledge that segment. The device that sent the ACK will then send a FIN message to close the connection it has with the other device. The sending of the FIN should be followed with the receipt of an ACK from the other device."
   },
   {
     "question": "What is a characteristic of UDP?",
     "options": [
-      "UDP datagrams take the same path and arrive in the correct order at the destination.​",
-      "Applications that use UDP are always considered unreliable.​",
+      "UDP datagrams take the same path and arrive in the correct order at the destination.",
+      "Applications that use UDP are always considered unreliable.",
       "UDP reassembles the received datagrams in the order they were received.",
       "UDP only passes data to the network when the destination is ready to receive the data."
     ],
     "correct_answers": [
       "UDP reassembles the received datagrams in the order they were received."
     ],
-    "explanation": "UDP has no way to reorder the datagrams into their transmission order, so UDP simply reassembles the data in the order it was received and forwards it to the application.​"
+    "explanation": "UDP has no way to reorder the datagrams into their transmission order, so UDP simply reassembles the data in the order it was received and forwards it to the application."
   },
   {
     "question": "What kind of port must be requested from IANA in order to be used with a specific application?",
@@ -170,7 +170,7 @@
     "correct_answers": [
       "registered port"
     ],
-    "explanation": "Registered ports (numbers 1024 to 49151) are assigned by IANA to a requesting entity to use with specific processes or applications. These processes are primarily individual applications that a user has chosen to install, rather than common applications that would receive a well-known port number. For example, Cisco has registered port 1985 for its Hot Standby Routing Protocol (HSRP) process.​"
+    "explanation": "Registered ports (numbers 1024 to 49151) are assigned by IANA to a requesting entity to use with specific processes or applications. These processes are primarily individual applications that a user has chosen to install, rather than common applications that would receive a well-known port number. For example, Cisco has registered port 1985 for its Hot Standby Routing Protocol (HSRP) process."
   },
   {
     "question": "Which three application layer protocols use TCP? (Choose three.)",
@@ -400,7 +400,7 @@
       "presentation",
       "application"
     ],
-    "explanation": "The network access layer of the TCP/IP model performs the same functions as the physical and data link layers of the OSI model. The internetwork layer equates to the network layer of the OSI model. The transport layers are the same in both models. The application layer of the TCP/IP model represents the session, presentation, and application layers of the OSI model.​"
+    "explanation": "The network access layer of the TCP/IP model performs the same functions as the physical and data link layers of the OSI model. The internetwork layer equates to the network layer of the OSI model. The transport layers are the same in both models. The application layer of the TCP/IP model represents the session, presentation, and application layers of the OSI model."
   },
   {
     "question": "What is an example of network communication that uses the client-server model?",
@@ -430,15 +430,15 @@
     "explanation": "The application layer of the TCP/IP model performs the functions of three layers of the OSI model - application, presentation, and session. The application layer of the TCP/IP model is the layer that provides the interface between the applications, is responsible for formatting, compressing, and encrypting data, and is used to create and maintain dialogs between source and destination applications."
   },
   {
-    "question": "What is an advantage of SMB over FTP?​",
+    "question": "What is an advantage of SMB over FTP?",
     "options": [
       "Only with SMB can data transfers occur in both directions.",
-      "Only SMB establishes two simultaneous connections with the client, making the data transfer faster.​",
-      "SMB is more reliable than FTP because SMB uses TCP and FTP uses UDP.​",
-      "SMB clients can establish a long-term connection to the server.​"
+      "Only SMB establishes two simultaneous connections with the client, making the data transfer faster.",
+      "SMB is more reliable than FTP because SMB uses TCP and FTP uses UDP.",
+      "SMB clients can establish a long-term connection to the server."
     ],
     "correct_answers": [
-      "SMB clients can establish a long-term connection to the server.​"
+      "SMB clients can establish a long-term connection to the server."
     ],
     "explanation": "SMB and FTP are client/server protocols that are used for file transfer. SMB allows the connecting device to access resources as if they were on the local client device. SMB and FTP use the TCP protocol for connection establishment and they can transfer data in both directions. FTP requires two connections between the client and the server, one for commands and replies, the other for the actual file transfer."
   },

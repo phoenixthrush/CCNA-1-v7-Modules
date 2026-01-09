@@ -426,7 +426,7 @@
     "correct_answers": [
       "CRC in the trailer"
     ],
-    "explanation": "The cyclic redundancy check (CRC) part of the trailer is used to determine if the frame has been modified during transit.​ If the integrity of the frame is verified, the frame is forwarded. If the integrity of the frame cannot be verified, then the frame is dropped."
+    "explanation": "The cyclic redundancy check (CRC) part of the trailer is used to determine if the frame has been modified during transit. If the integrity of the frame is verified, the frame is forwarded. If the integrity of the frame cannot be verified, then the frame is dropped."
   },
   {
     "question": "What are two actions performed by a Cisco switch? (Choose two.)",
@@ -498,7 +498,7 @@
     "explanation": "When a cable to an RJ-45 connector is terminated, it is important to ensure that the untwisted wires are not too long and that the flexible plastic sheath surrounding the wires is crimped down and not the bare wires. None of the colored wires should be visible from the bottom of the jack."
   },
   {
-    "question": "Refer to the exhibit. The PC is connected to the console port of the switch. All the other connections are made through FastEthernet links. Which types of UTP cables can be used to connect the devices?​",
+    "question": "Refer to the exhibit. The PC is connected to the console port of the switch. All the other connections are made through FastEthernet links. Which types of UTP cables can be used to connect the devices?",
     "options": [],
     "correct_answers": [],
     "explanation": "A straight-through cable is commonly used to interconnect a host to a switch and a switch to a router. A crossover cable is used to interconnect similar devices together like switch to a switch, a host to a host, or a router to a router. If a switch has the MDIX capability, a crossover could be used to connect the switch to the router; however, that option is not available. A rollover cable is used to connect to a router or switch console port."

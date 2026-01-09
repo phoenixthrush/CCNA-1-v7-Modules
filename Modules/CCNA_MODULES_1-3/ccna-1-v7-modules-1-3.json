@@ -2,7 +2,7 @@
   {
     "question": "During a routine inspection, a technician discovered that software that was installed on a computer was secretly collecting data about websites that were visited by users of the computer. Which type of threat is affecting this computer?",
     "options": [
-      "DoS attack​",
+      "DoS attack",
       "identity theft",
       "spyware",
       "zero-day attack"
@@ -23,7 +23,7 @@
     "correct_answers": [
       "extranet"
     ],
-    "explanation": "The term Internet refers to the worldwide collection of connected networks. Intranet refers to a private connection of LANs and WANS that belong to an organization and is designed to be accessible to the members of the organization, employees, or others with authorization.​ Extranets provide secure and safe access to ​suppliers, customers, and collaborators. Extendednet is not a type of network."
+    "explanation": "The term Internet refers to the worldwide collection of connected networks. Intranet refers to a private connection of LANs and WANS that belong to an organization and is designed to be accessible to the members of the organization, employees, or others with authorization. Extranets provide secure and safe access to suppliers, customers, and collaborators. Extendednet is not a type of network."
   },
   {
     "question": "A large corporation has modified its network to allow users to access network resources from their personal laptops and smart phones. Which networking trend does this describe?",
