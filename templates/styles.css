@@ -1,0 +1,225 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    padding: 40px 20px;
+    font-size: 1.1em;
+    color: #e8e6e1;
+}
+
+#questions-container {
+    max-width: 900px;
+    margin: 0 auto 30px;
+    background: #222425;
+    border-radius: 12px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+    padding: 40px;
+    border: 1px solid #3a3d3f;
+    position: relative;
+}
+
+.question-counter {
+    position: absolute;
+    bottom: 20px;
+    right: 30px;
+    font-size: 0.95em;
+    color: #8ab4f8;
+    font-weight: 600;
+}
+
+#questions-container>div>p:first-child {
+    font-size: 1.4em;
+    font-weight: 600;
+    color: #e8e6e1;
+    margin-bottom: 25px;
+    line-height: 1.5;
+}
+
+#questions-container img {
+    border-radius: 8px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+ul {
+    list-style-type: none;
+    margin: 25px 0;
+}
+
+li {
+    margin: 12px 0;
+    transition: all 0.3s ease;
+}
+
+input[type="radio"],
+input[type="checkbox"] {
+    display: none;
+}
+
+label {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    padding: 12px 15px;
+    background: #2d2e30;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    border: 2px solid #3a3d3f;
+    color: #e8e6e1;
+}
+
+label:hover {
+    background: #3a3d3f;
+    border-color: #8ab4f8;
+}
+
+input:checked+label {
+    background: #3a3d3f;
+    border-color: #8ab4f8;
+    font-weight: 500;
+    color: #8ab4f8;
+}
+
+input:disabled+label {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+li label img {
+    margin: 10px 0 0 0;
+    max-width: 100%;
+    border-radius: 8px;
+}
+
+.image-loader {
+    display: inline-block;
+    width: 100%;
+    height: 300px;
+    background: #2d2e30;
+    border-radius: 8px;
+    margin: 10px 0 0 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #8ab4f8;
+    font-weight: 600;
+    animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        opacity: 0.6;
+    }
+
+    50% {
+        opacity: 1;
+    }
+}
+
+#result-msg {
+    margin-top: 25px;
+    font-size: 1.3em;
+    font-weight: 700;
+    padding: 15px 20px;
+    border-radius: 8px;
+    text-align: center;
+}
+
+li[style*="color: green"] label {
+    color: #8bc34a;
+    font-weight: 600;
+    border-color: #8bc34a;
+}
+
+li.correct-answer label {
+    border: 2px solid #8bc34a;
+}
+
+li.wrong-answer label {
+    border: 2px solid #ef4444;
+}
+
+#explanation-msg {
+    margin-top: 20px;
+    padding: 18px 20px;
+    background: #2d2e30;
+    border-left: 4px solid #ff9800;
+    border-radius: 6px;
+    color: #e8e6e1;
+    line-height: 1.6;
+    font-style: normal;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+#next-btn {
+    display: block;
+    margin: 30px auto 0;
+    background: #8ab4f8;
+    color: #181a1b;
+    border: none;
+    padding: 14px 45px;
+    font-size: 1.05em;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(138, 180, 248, 0.3);
+}
+
+#next-btn:hover:not(:disabled) {
+    transform: translateY(-2px);
+    background: #a8c8ff;
+    box-shadow: 0 6px 20px rgba(138, 180, 248, 0.5);
+}
+
+#next-btn:active:not(:disabled) {
+    transform: translateY(0);
+}
+
+#next-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+@media (max-width: 768px) {
+    #questions-container {
+        padding: 25px;
+    }
+
+    #questions-container>div>p:first-child {
+        font-size: 1.2em;
+    }
+
+    body {
+        padding: 20px 10px;
+    }
+}
+
+.copyright {
+    font-size: 0.85em;
+    color: rgba(232, 230, 225, 0.3);
+    position: fixed;
+    bottom: 15px;
+    right: 20px;
+    margin: 0;
+}
+
+.copyright a {
+    color: rgba(232, 230, 225, 0.3);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.copyright a:hover {
+    color: rgba(232, 230, 225, 0.7);
+    text-decoration: underline;
+}
