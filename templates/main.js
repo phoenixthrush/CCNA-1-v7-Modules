@@ -17,9 +17,9 @@ let answered = false;
 
 async function loadQuestions() {
     try {
-        const rawJson = `[
+        const rawJson = `
             {{ JSON_CONTENT }}
-        ]`;
+        `;
 
         let data;
 
