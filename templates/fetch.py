@@ -157,9 +157,15 @@ def main():
         print(f"\n=== Processing module {module} ===")
         print(f"Downloading: {url}")
 
+        replacements = {
+            "\u200b": "",
+        }
+
         try:
             with urllib.request.urlopen(url) as r:
                 html = r.read().decode("utf-8")
+                for old, new in replacements.items():
+                    html = html.replace(old, new)
         except Exception as e:
             print(f"Failed to download {url}: {e}")
             continue
