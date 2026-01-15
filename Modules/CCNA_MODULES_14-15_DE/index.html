@@ -1,0 +1,1192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cisco CCNA v7 - Modules 14-15</title>
+    <meta name="darkreader-lock">
+    <meta name="theme-color" content="#000">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+            font-size: 1.1em;
+            color: #e8e6e1;
+        }
+
+        #questions-container {
+            max-width: 900px;
+            margin: 0 auto 30px;
+            background: #222425;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+            padding: 40px;
+            border: 1px solid #3a3d3f;
+            position: relative;
+        }
+
+        .question-counter {
+            position: absolute;
+            bottom: 20px;
+            right: 30px;
+            font-size: 0.95em;
+            color: #8ab4f8;
+            font-weight: 600;
+        }
+
+        #questions-container>div>p:first-child {
+            font-size: 1.4em;
+            font-weight: 600;
+            color: #e8e6e1;
+            margin-bottom: 25px;
+            line-height: 1.5;
+        }
+
+        #questions-container img {
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        ul {
+            list-style-type: none;
+            margin: 25px 0;
+        }
+
+        li {
+            margin: 12px 0;
+            transition: all 0.3s ease;
+        }
+
+        input[type="radio"],
+        input[type="checkbox"] {
+            display: none;
+        }
+
+        label {
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            background: #2d2e30;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            border: 2px solid #3a3d3f;
+            color: #e8e6e1;
+        }
+
+        label:hover {
+            background: #3a3d3f;
+            border-color: #8ab4f8;
+        }
+
+        input:checked+label {
+            background: #3a3d3f;
+            border-color: #8ab4f8;
+            font-weight: 500;
+            color: #8ab4f8;
+        }
+
+        input:disabled+label {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        li label img {
+            margin: 10px 0 0 0;
+            max-width: 100%;
+            border-radius: 8px;
+        }
+
+        .image-loader {
+            display: inline-block;
+            width: 100%;
+            height: 300px;
+            background: #2d2e30;
+            border-radius: 8px;
+            margin: 10px 0 0 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #8ab4f8;
+            font-weight: 600;
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 0.6;
+            }
+
+            50% {
+                opacity: 1;
+            }
+        }
+
+        #result-msg {
+            margin-top: 25px;
+            font-size: 1.3em;
+            font-weight: 700;
+            padding: 15px 20px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        li[style*="color: green"] label {
+            color: #8bc34a;
+            font-weight: 600;
+            border-color: #8bc34a;
+        }
+
+        li.correct-answer label {
+            border: 2px solid #8bc34a;
+        }
+
+        li.wrong-answer label {
+            border: 2px solid #ef4444;
+        }
+
+        #explanation-msg {
+            margin-top: 20px;
+            padding: 18px 20px;
+            background: #2d2e30;
+            border-left: 4px solid #ff9800;
+            border-radius: 6px;
+            color: #e8e6e1;
+            line-height: 1.6;
+            font-style: normal;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        #next-btn {
+            display: block;
+            margin: 30px auto 0;
+            background: #8ab4f8;
+            color: #181a1b;
+            border: none;
+            padding: 14px 45px;
+            font-size: 1.05em;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(138, 180, 248, 0.3);
+        }
+
+        #next-btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            background: #a8c8ff;
+            box-shadow: 0 6px 20px rgba(138, 180, 248, 0.5);
+        }
+
+        #next-btn:active:not(:disabled) {
+            transform: translateY(0);
+        }
+
+        #next-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        @media (max-width: 768px) {
+            #questions-container {
+                padding: 25px;
+            }
+
+            #questions-container>div>p:first-child {
+                font-size: 1.2em;
+            }
+
+            body {
+                padding: 20px 10px;
+            }
+        }
+
+        .copyright {
+            font-size: 0.85em;
+            color: rgba(232, 230, 225, 0.3);
+            position: fixed;
+            bottom: 15px;
+            right: 20px;
+            margin: 0;
+        }
+
+        .copyright a {
+            color: rgba(232, 230, 225, 0.3);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .copyright a:hover {
+            color: rgba(232, 230, 225, 0.7);
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="questions-container"></div>
+    <button id="next-btn">Submit</button>
+    <div class="copyright">
+        <a href="https://phoenixthrush.com" target="_blank" rel="noopener noreferrer">© 2025-2026 phoenixthrush</a>
+    </div>
+    <script>
+        // Fisher–Yates shuffle
+        function shuffle(arr) {
+            const a = [...arr];
+            for (let i = a.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [a[i], a[j]] = [a[j], a[i]];
+            }
+            return a;
+        }
+
+        const container = document.getElementById('questions-container');
+        const nextBtn = document.getElementById('next-btn');
+
+        let questions = [];
+        let currentIndex = 0;
+        let answered = false;
+
+        async function loadQuestions() {
+            try {
+                const rawJson = `
+                    [
+                        {
+                            "question": "Welche Aktion führt ein Client aus, wenn er über UDP auf der Transportschicht eine Kommunikation mit einem Server aufbaut?",
+                            "options": [
+                            "Der Client legt die Fenstergröße für die Sitzung fest.",
+                            "Der Client sendet eine ISN an den Server, um den Drei-Wege-Handshake zu starten.",
+                            "Der Client wählt zufällig eine Quellportnummer.",
+                            "Der Client sendet ein Synchronisationssegment, um die Sitzung zu beginnen."
+                            ],
+                            "correct_answers": [
+                            "Der Client wählt zufällig eine Quellportnummer."
+                            ]
+                        },
+                        {
+                            "question": "Welche Funktion der Transportschicht wird verwendet, um den Sitzungsaufbau zu garantieren?",
+                            "options": [
+                            "UDP-ACK-Flag",
+                            "TCP-Drei-Wege-Handshake",
+                            "UDP-Sequenznummer",
+                            "TCP-Portnummer"
+                            ],
+                            "correct_answers": [
+                            "TCP-Drei-Wege-Handshake"
+                            ]
+                        },
+                        {
+                            "question": "Was ist der vollständige Bereich der bekannten TCP- und UDP-Ports?",
+                            "options": [
+                            "0 bis 255",
+                            "0 bis 1023",
+                            "256 bis 1023",
+                            "1024 bis 49151"
+                            ],
+                            "correct_answers": [
+                            "0 bis 1023"
+                            ]
+                        },
+                        {
+                            "question": "Was ist ein Socket?",
+                            "options": [
+                            "Die Kombination aus Quell- und Ziel-IP-Adresse sowie Quell- und Ziel-Ethernet-Adresse",
+                            "Die Kombination aus einer Quell-IP-Adresse und Portnummer oder einer Ziel-IP-Adresse und Portnummer",
+                            "Die Kombination aus Quell- und Ziel-Sequenz- und Bestätigungsnummern",
+                            "Die Kombination aus Quell- und Ziel-Sequenznummern und Portnummern"
+                            ],
+                            "correct_answers": [
+                            "Die Kombination aus einer Quell-IP-Adresse und Portnummer oder einer Ziel-IP-Adresse und Portnummer"
+                            ]
+                        },
+                        {
+                            "question": "Ein PC lädt eine große Datei von einem Server herunter. Das TCP-Fenster beträgt 1000 Bytes. Der Server sendet die Datei in Segmenten von 100 Bytes. Wie viele Segmente sendet der Server, bevor eine Bestätigung vom PC erforderlich ist?",
+                            "options": [
+                            "1 Segment",
+                            "10 Segmente",
+                            "100 Segmente",
+                            "1000 Segmente"
+                            ],
+                            "correct_answers": [
+                            "10 Segmente"
+                            ],
+                            "explanation": "Bei einem Fenster von 1000 Bytes akzeptiert der Zielhost Segmente, bis alle 1000 Bytes empfangen wurden. Dann sendet der Zielhost eine Bestätigung."
+                        },
+                        {
+                            "question": "Was macht ein Client, wenn er UDP-Datagramme senden möchte?",
+                            "options": [
+                            "Er sendet die Datagramme einfach.",
+                            "Er fragt den Server, ob er bereit ist, Daten zu empfangen.",
+                            "Er sendet einen vereinfachten Drei-Wege-Handshake an den Server.",
+                            "Er sendet ein Segment mit gesetztem SYN-Flag an den Server, um die Kommunikation zu synchronisieren."
+                            ],
+                            "correct_answers": [
+                            "Er sendet die Datagramme einfach."
+                            ],
+                            "explanation": "Wenn ein Client UDP-Datagramme senden möchte, sendet er sie einfach."
+                        },
+                        {
+                            "question": "Welche drei Felder werden im UDP-Segment-Header verwendet? (Wählen Sie drei.)",
+                            "options": [
+                            "Fenstergröße",
+                            "Länge",
+                            "Quellport",
+                            "Bestätigungsnummer",
+                            "Prüfsumme",
+                            "Sequenznummer"
+                            ],
+                            "correct_answers": [
+                            "Länge",
+                            "Quellport",
+                            "Prüfsumme"
+                            ],
+                            "explanation": "Ein UDP-Header besteht nur aus den Feldern Quellport, Zielport, Länge und Prüfsumme. Sequenznummer, Bestätigungsnummer und Fenstergröße sind TCP-Header-Felder."
+                        },
+                        {
+                            "question": "Welche zwei Aufgaben hat die Transportschicht bei der Datenkommunikation im Netzwerk? (Wählen Sie zwei.)",
+                            "options": [
+                            "Identifizierung der richtigen Anwendung für jeden Datenstrom",
+                            "Verfolgung der einzelnen Kommunikation zwischen Anwendungen auf Quell- und Zielhost",
+                            "Bereitstellung von Rahmenbegrenzung zur Identifizierung der Bits eines Rahmens",
+                            "Durchführung einer zyklischen Redundanzprüfung des Rahmens auf Fehler",
+                            "Bereitstellung der Schnittstelle zwischen Anwendungen und dem zugrunde liegenden Netzwerk, über das Nachrichten übertragen werden"
+                            ],
+                            "correct_answers": [
+                            "Identifizierung der richtigen Anwendung für jeden Datenstrom",
+                            "Verfolgung der einzelnen Kommunikation zwischen Anwendungen auf Quell- und Zielhost"
+                            ],
+                            "explanation": "Die Transportschicht verfolgt Kommunikationsströme, segmentiert Daten und identifiziert die richtige Anwendung anhand von Portnummern."
+                        },
+                        {
+                            "question": "Welche Information verwendet TCP, um empfangene Segmente wieder zusammenzusetzen und in die richtige Reihenfolge zu bringen?",
+                            "options": [
+                            "Portnummern",
+                            "Sequenznummern",
+                            "Bestätigungsnummern",
+                            "Fragmentnummern"
+                            ],
+                            "correct_answers": [
+                            "Sequenznummern"
+                            ],
+                            "explanation": "TCP verwendet die Sequenznummern im Header jedes Segments, um die Daten korrekt wieder zusammenzusetzen."
+                        },
+                        {
+                            "question": "Welche zwei Merkmale sind mit UDP-Sitzungen verbunden? (Wählen Sie zwei.)",
+                            "options": [
+                            "Zielgeräte empfangen Datenverkehr mit minimaler Verzögerung.",
+                            "Übertragene Datensegmente werden verfolgt.",
+                            "Zielgeräte setzen Nachrichten wieder zusammen und übergeben sie an eine Anwendung.",
+                            "Empfangene Daten werden nicht bestätigt.",
+                            "Nicht bestätigte Datenpakete werden erneut übertragen."
+                            ],
+                            "correct_answers": [
+                            "Zielgeräte empfangen Datenverkehr mit minimaler Verzögerung.",
+                            "Empfangene Daten werden nicht bestätigt."
+                            ],
+                            "explanation": "UDP verwendet sehr wenig Overhead, was minimale Verzögerung verursacht. Es gibt keine Bestätigung oder erneute Übertragung."
+                        },
+                        {
+                            "question": "Eine Client-Anwendung muss eine TCP-Kommunikationssitzung mit einem Server beenden. Welche Schritte erfolgen in der richtigen Reihenfolge? (Nicht alle Optionen werden verwendet.) Welches Flag im TCP-Header wird als Antwort auf ein empfangenes FIN verwendet, um die Verbindung zwischen zwei Netzwerkgeräten zu beenden?",
+                            "options": [
+                            "FIN",
+                            "ACK",
+                            "SYN",
+                            "RST"
+                            ],
+                            "correct_answers": [
+                            "ACK"
+                            ],
+                            "explanation": "In einer TCP-Sitzung sendet ein Gerät, wenn es keine Daten mehr zu senden hat, ein Segment mit gesetztem FIN-Flag. Das verbundene Gerät, das das Segment empfängt, antwortet mit einem ACK, um das Segment zu bestätigen. Danach sendet das Gerät, das das ACK gesendet hat, eine FIN-Nachricht, um die Verbindung zu schließen. Der Empfang des FIN sollte mit einem ACK bestätigt werden."
+                        },
+                        {
+                            "question": "Was ist ein Merkmal von UDP?",
+                            "options": [
+                            "UDP-Datagramme nehmen denselben Pfad und kommen in der richtigen Reihenfolge am Ziel an.",
+                            "Anwendungen, die UDP verwenden, gelten immer als unzuverlässig.",
+                            "UDP setzt die empfangenen Datagramme in der Reihenfolge zusammen, in der sie empfangen wurden.",
+                            "UDP überträgt Daten nur, wenn das Ziel bereit ist, die Daten zu empfangen."
+                            ],
+                            "correct_answers": [
+                            "UDP setzt die empfangenen Datagramme in der Reihenfolge zusammen, in der sie empfangen wurden."
+                            ],
+                            "explanation": "UDP kann die Datagramme nicht in die ursprüngliche Übertragungsreihenfolge bringen. Es setzt die Daten einfach in der Reihenfolge zusammen, in der sie empfangen wurden, und leitet sie an die Anwendung weiter."
+                        },
+                        {
+                            "question": "Welche Art von Port muss bei der IANA beantragt werden, um mit einer bestimmten Anwendung verwendet zu werden?",
+                            "options": [
+                            "Registrierter Port",
+                            "Privater Port",
+                            "Dynamischer Port",
+                            "Quellport"
+                            ],
+                            "correct_answers": [
+                            "Registrierter Port"
+                            ],
+                            "explanation": "Registrierte Ports (Nummern 1024 bis 49151) werden von der IANA einer anfragenden Instanz zugewiesen, um sie mit bestimmten Prozessen oder Anwendungen zu verwenden."
+                        },
+                        {
+                            "question": "Welche drei Anwendungsprotokolle verwenden TCP? (Wählen Sie drei.)",
+                            "options": [
+                            "SMTP",
+                            "FTP",
+                            "SNMP",
+                            "HTTP",
+                            "TFTP",
+                            "DHCP"
+                            ],
+                            "correct_answers": [
+                            "SMTP",
+                            "FTP",
+                            "HTTP"
+                            ],
+                            "explanation": "Protokolle wie SMTP, FTP und HTTP benötigen die zuverlässige Datenübertragung, die TCP bietet."
+                        },
+                        {
+                            "question": "Welche drei Aussagen charakterisieren UDP? (Wählen Sie drei.)",
+                            "options": [
+                            "UDP bietet grundlegende verbindungslose Funktionen der Transportschicht.",
+                            "UDP bietet verbindungsorientierte, schnelle Datenübertragung auf Schicht 3.",
+                            "UDP verlässt sich auf Anwendungsprotokolle für die Fehlererkennung.",
+                            "UDP ist ein Protokoll mit geringem Overhead, das keine Sequenzierung oder Flusskontrolle bietet.",
+                            "UDP verlässt sich auf IP für Fehlererkennung und Wiederherstellung.",
+                            "UDP bietet ausgefeilte Flusskontrollmechanismen."
+                            ],
+                            "correct_answers": [
+                            "UDP bietet grundlegende verbindungslose Funktionen der Transportschicht.",
+                            "UDP verlässt sich auf Anwendungsprotokolle für die Fehlererkennung.",
+                            "UDP ist ein Protokoll mit geringem Overhead, das keine Sequenzierung oder Flusskontrolle bietet."
+                            ],
+                            "explanation": "UDP ist ein einfaches Protokoll mit geringem Overhead, da es nicht verbindungsorientiert ist und keine Mechanismen für Wiederholungen, Sequenzierung oder Flusskontrolle bietet."
+                        },
+                        {
+                            "question": "Welches Feld im TCP-Header zeigt den Status des Drei-Wege-Handshakes an?",
+                            "options": [
+                            "Fenster",
+                            "Reserviert",
+                            "Prüfsumme",
+                            "Steuerbits"
+                            ],
+                            "correct_answers": [
+                            "Steuerbits"
+                            ],
+                            "explanation": "Der Wert im Steuerbits-Feld des TCP-Headers zeigt den Fortschritt und Status der Verbindung an."
+                        },
+                        {
+                            "question": "Warum verwendet HTTP TCP als Transportschichtprotokoll?",
+                            "options": [
+                            "Um die schnellstmögliche Download-Geschwindigkeit sicherzustellen",
+                            "Weil HTTP ein Best-Effort-Protokoll ist",
+                            "Weil Übertragungsfehler leicht toleriert werden können",
+                            "Weil HTTP eine zuverlässige Übertragung erfordert"
+                            ],
+                            "correct_answers": [
+                            "Weil HTTP eine zuverlässige Übertragung erfordert"
+                            ],
+                            "explanation": "Beim Abrufen einer Webseite muss die Übertragung zuverlässig und vollständig sein. Daher verwendet HTTP TCP."
+                        },
+                        {
+                            "question": "Wie werden Portnummern im TCP/IP-Kapselungsprozess verwendet?",
+                            "options": [
+                            "Quell- und Zielportnummern sind nicht erforderlich, wenn UDP als Transportschichtprotokoll verwendet wird.",
+                            "Quell- und Zielportnummern werden zufällig generiert.",
+                            "Wenn mehrere Gespräche denselben Dienst verwenden, wird die Quellportnummer verwendet, um die separaten Gespräche zu verfolgen.",
+                            "Zielportnummern werden automatisch zugewiesen und können nicht geändert werden."
+                            ],
+                            "correct_answers": [
+                            "Wenn mehrere Gespräche denselben Dienst verwenden, wird die Quellportnummer verwendet, um die separaten Gespräche zu verfolgen."
+                            ],
+                            "explanation": "Sowohl UDP als auch TCP verwenden Portnummern, um jede Unterhaltung eindeutig zu identifizieren."
+                        },
+                        {
+                            "question": "In welchen zwei Situationen wäre UDP besser als TCP als bevorzugtes Transportschichtprotokoll? (Wählen Sie zwei.)",
+                            "options": [
+                            "Wenn Anwendungen garantieren müssen, dass ein Paket intakt, in der richtigen Reihenfolge und ohne Duplikate ankommt",
+                            "Wenn ein schnelleres Übertragungsverfahren erforderlich ist",
+                            "Wenn Übertragungs-Overhead keine Rolle spielt",
+                            "Wenn Anwendungen die Zustellung der Daten nicht garantieren müssen",
+                            "Wenn Zielportnummern dynamisch sind"
+                            ],
+                            "correct_answers": [
+                            "Wenn ein schnelleres Übertragungsverfahren erforderlich ist",
+                            "Wenn Anwendungen die Zustellung der Daten nicht garantieren müssen"
+                            ],
+                            "explanation": "UDP ist ein einfaches Protokoll ohne Garantie für die Zustellung und wird für Anwendungen verwendet, die eine schnelle Übertragung benötigen."
+                        },
+                        {
+                            "question": "Welche drei Aufgaben hat die Transportschicht? (Wählen Sie drei.)",
+                            "options": [
+                            "Erfüllung der Zuverlässigkeitsanforderungen von Anwendungen, falls vorhanden",
+                            "Multiplexing mehrerer Kommunikationsströme von vielen Benutzern oder Anwendungen im selben Netzwerk",
+                            "Identifizierung der Anwendungen und Dienste auf Client und Server, die die übertragenen Daten verarbeiten sollen",
+                            "Weiterleitung von Paketen zum Zielnetzwerk",
+                            "Formatierung von Daten in eine kompatible Form für den Empfang durch die Zielgeräte",
+                            "Durchführung der Fehlererkennung des Inhalts in Frames"
+                            ],
+                            "correct_answers": [
+                            "Erfüllung der Zuverlässigkeitsanforderungen von Anwendungen, falls vorhanden",
+                            "Multiplexing mehrerer Kommunikationsströme von vielen Benutzern oder Anwendungen im selben Netzwerk",
+                            "Identifizierung der Anwendungen und Dienste auf Client und Server, die die übertragenen Daten verarbeiten sollen"
+                            ],
+                            "explanation": "Die Transportschicht verfolgt Kommunikationsströme, segmentiert Daten und identifiziert die richtige Anwendung anhand von Portnummern."
+                        },
+                        {
+                            "question": "Welche zwei Protokolle können Geräte im Anwendungsprozess verwenden, der E-Mails sendet? (Wählen Sie zwei.)",
+                            "options": [
+                            "HTTP",
+                            "SMTP",
+                            "POP",
+                            "IMAP",
+                            "DNS",
+                            "POP3"
+                            ],
+                            "correct_answers": [
+                            "SMTP",
+                            "DNS"
+                            ],
+                            "explanation": "POP, POP3 und IMAP werden zum Abrufen von E-Mails verwendet. SMTP ist das Standardprotokoll zum Senden von E-Mails. DNS kann verwendet werden, um die Adresse des Ziel-Mailservers zu ermitteln."
+                        },
+                        {
+                            "question": "Was trifft auf das Server Message Block (SMB)-Protokoll zu?",
+                            "options": [
+                            "Unterschiedliche SMB-Nachrichtentypen haben ein unterschiedliches Format.",
+                            "Clients stellen eine langfristige Verbindung zu Servern her.",
+                            "SMB-Nachrichten können eine Sitzung nicht authentifizieren.",
+                            "SMB verwendet das FTP-Protokoll für die Kommunikation."
+                            ],
+                            "correct_answers": [
+                            "Clients stellen eine langfristige Verbindung zu Servern her."
+                            ],
+                            "explanation": "Das SMB-Protokoll wird für Datei-, Drucker- und Verzeichnisfreigaben verwendet. Clients stellen eine langfristige Verbindung zu Servern her, um Ressourcen zu nutzen."
+                        },
+                        {
+                            "question": "Was ist die Funktion der HTTP-GET-Nachricht?",
+                            "options": [
+                            "Um eine HTML-Seite von einem Webserver anzufordern",
+                            "Um Fehlerinformationen von einem Webserver an einen Webclient zu senden",
+                            "Um Inhalte von einem Webclient auf einen Webserver hochzuladen",
+                            "Um E-Mails von einem E-Mail-Server über TCP-Port 110 abzurufen"
+                            ],
+                            "correct_answers": [
+                            "Um eine HTML-Seite von einem Webserver anzufordern"
+                            ],
+                            "explanation": "Die HTTP-GET-Nachricht wird von Clients verwendet, um Daten vom Webserver anzufordern."
+                        },
+                        {
+                            "question": "Welche OSI-Schicht stellt die Schnittstelle zwischen den Anwendungen und dem zugrunde liegenden Netzwerk bereit?",
+                            "options": [
+                            "Anwendung",
+                            "Darstellung",
+                            "Sitzung",
+                            "Transport"
+                            ],
+                            "correct_answers": [
+                            "Anwendung"
+                            ],
+                            "explanation": "Die Anwendungsschicht ist die dem Endbenutzer am nächsten liegende Schicht und stellt die Schnittstelle zum Netzwerk bereit."
+                        },
+                        {
+                            "question": "Welches Netzwerkmodell wird verwendet, wenn ein Autor ein Kapitel auf den Dateiserver eines Buchverlags hochlädt?",
+                            "options": [
+                            "Peer-to-Peer",
+                            "Master-Slave",
+                            "Client/Server",
+                            "Point-to-Point"
+                            ],
+                            "correct_answers": [
+                            "Client/Server"
+                            ],
+                            "explanation": "Im Client/Server-Modell stellt ein Server Dienste wie Dateiübertragung bereit, während Clients diese Dienste nutzen."
+                        },
+                        {
+                            "question": "Was haben die Client/Server- und Peer-to-Peer-Netzwerkmodelle gemeinsam?",
+                            "options": [
+                            "Beide Modelle haben dedizierte Server.",
+                            "Beide Modelle unterstützen Geräte in Server- und Client-Rollen.",
+                            "Beide Modelle erfordern die Verwendung von TCP/IP-basierten Protokollen.",
+                            "Beide Modelle werden nur in kabelgebundenen Netzwerken verwendet."
+                            ],
+                            "correct_answers": [
+                            "Beide Modelle unterstützen Geräte in Server- und Client-Rollen."
+                            ],
+                            "explanation": "In beiden Modellen können Geräte als Server oder Client fungieren."
+                        },
+                        {
+                            "question": "In welchem Netzwerkmodell würden eDonkey, eMule, BitTorrent, Bitcoin und LionShare verwendet?",
+                            "options": [
+                            "Peer-to-Peer",
+                            "Client-basiert",
+                            "Master-Slave",
+                            "Point-to-Point"
+                            ],
+                            "correct_answers": [
+                            "Peer-to-Peer"
+                            ],
+                            "explanation": "Peer-to-Peer-Anwendungen ermöglichen den direkten Austausch von Daten zwischen Geräten ohne dedizierten Server."
+                        },
+                        {
+                            "question": "Welches Protokoll wird häufig mit Peer-to-Peer-Anwendungen wie WireShare, Bearshare und Shareaza verwendet?",
+                            "options": [
+                            "Ethernet",
+                            "Gnutella",
+                            "POP",
+                            "SMTP"
+                            ],
+                            "correct_answers": [
+                            "Gnutella"
+                            ],
+                            "explanation": "Das Gnutella-Protokoll wird verwendet, um Dateien zwischen Benutzern in Peer-to-Peer-Netzwerken auszutauschen."
+                        },
+                        {
+                            "question": "Die Anwendungsschicht des TCP/IP-Modells erfüllt die Funktionen welcher drei OSI-Schichten? (Wählen Sie drei.)",
+                            "options": [
+                            "Physikalisch",
+                            "Sitzung",
+                            "Netzwerk",
+                            "Darstellung",
+                            "Sicherung",
+                            "Transport",
+                            "Anwendung"
+                            ],
+                            "correct_answers": [
+                            "Sitzung",
+                            "Darstellung",
+                            "Anwendung"
+                            ],
+                            "explanation": "Die Anwendungsschicht des TCP/IP-Modells entspricht den OSI-Schichten Anwendung, Darstellung und Sitzung."
+                        },
+                        {
+                            "question": "Was ist ein Beispiel für eine Netzwerkkommunikation, die das Client-Server-Modell verwendet?",
+                            "options": [
+                            "Ein Benutzer verwendet eMule, um eine Datei herunterzuladen, die von einem Freund freigegeben wurde.",
+                            "Eine Workstation sendet eine ARP-Anfrage, um die MAC-Adresse eines Hosts zu finden.",
+                            "Ein Benutzer druckt ein Dokument über einen Drucker, der an die Workstation eines Kollegen angeschlossen ist.",
+                            "Eine Workstation sendet eine DNS-Anfrage, wenn der Benutzer www.cisco.com in die Adressleiste eines Browsers eingibt."
+                            ],
+                            "correct_answers": [
+                            "Eine Workstation sendet eine DNS-Anfrage, wenn der Benutzer www.cisco.com in die Adressleiste eines Browsers eingibt."
+                            ],
+                            "explanation": "Das Senden einer DNS-Anfrage an einen DNS-Server ist ein Beispiel für das Client-Server-Modell."
+                        },
+                        {
+                            "question": "Welche Schicht im TCP/IP-Modell wird zum Formatieren, Komprimieren und Verschlüsseln von Daten verwendet?",
+                            "options": [
+                            "Internetwork",
+                            "Sitzung",
+                            "Darstellung",
+                            "Anwendung",
+                            "Netzzugang"
+                            ],
+                            "correct_answers": [
+                            "Anwendung"
+                            ],
+                            "explanation": "Die Anwendungsschicht des TCP/IP-Modells übernimmt die Funktionen der OSI-Schichten Anwendung, Darstellung und Sitzung. Sie ist für Formatierung, Komprimierung und Verschlüsselung von Daten verantwortlich."
+                        },
+                        {
+                            "question": "Was ist ein Vorteil von SMB gegenüber FTP?",
+                            "options": [
+                            "Nur mit SMB können Datenübertragungen in beide Richtungen erfolgen.",
+                            "Nur SMB stellt zwei gleichzeitige Verbindungen zum Client her, was die Datenübertragung beschleunigt.",
+                            "SMB ist zuverlässiger als FTP, da SMB TCP und FTP UDP verwendet.",
+                            "SMB-Clients können eine langfristige Verbindung zum Server herstellen."
+                            ],
+                            "correct_answers": [
+                            "SMB-Clients können eine langfristige Verbindung zum Server herstellen."
+                            ],
+                            "explanation": "SMB ermöglicht eine dauerhafte Verbindung, sodass Ressourcen wie lokale Dateien genutzt werden können. FTP erfordert zwei separate Verbindungen für Befehle und Daten."
+                        },
+                        {
+                            "question": "Ein Unternehmen abonniert bestimmte gehostete Dienste von seinem ISP. Die benötigten Dienste sind gehostetes WWW, Dateiübertragung und E-Mail. Welche Protokolle repräsentieren diese drei Schlüsselanwendungen? (Wählen Sie drei.)",
+                            "options": [
+                            "FTP",
+                            "HTTP",
+                            "DNS",
+                            "SNMP",
+                            "DHCP",
+                            "SMTP"
+                            ],
+                            "correct_answers": [
+                            "FTP",
+                            "HTTP",
+                            "SMTP"
+                            ],
+                            "explanation": "HTTP wird für Webdienste, FTP für Dateiübertragungen und SMTP für E-Mail verwendet."
+                        },
+                        {
+                            "question": "Welche Art von Informationen enthält ein DNS-MX-Eintrag?",
+                            "options": [
+                            "Den FQDN des Alias, der einen Dienst identifiziert",
+                            "Die IP-Adresse für einen FQDN-Eintrag",
+                            "Den Domainnamen, der Mail-Exchange-Servern zugeordnet ist",
+                            "Die IP-Adresse eines autoritativen Nameservers"
+                            ],
+                            "correct_answers": [
+                            "Den Domainnamen, der Mail-Exchange-Servern zugeordnet ist"
+                            ],
+                            "explanation": "MX-Einträge ordnen einen Domainnamen mehreren Mail-Exchange-Servern zu."
+                        },
+                        {
+                            "question": "Welche drei Protokolle arbeiten auf der Anwendungsschicht des TCP/IP-Modells? (Wählen Sie drei.)",
+                            "options": [
+                            "ARP",
+                            "TCP",
+                            "UDP",
+                            "FTP",
+                            "POP3",
+                            "DHCP"
+                            ],
+                            "correct_answers": [
+                            "FTP",
+                            "POP3",
+                            "DHCP"
+                            ],
+                            "explanation": "FTP, DHCP und POP3 sind Anwendungsprotokolle. TCP und UDP gehören zur Transportschicht, ARP zur Netzwerkschicht."
+                        },
+                        {
+                            "question": "Welches Protokoll wird von einem Client verwendet, um sicher mit einem Webserver zu kommunizieren?",
+                            "options": [
+                            "SMTP",
+                            "SMB",
+                            "IMAP",
+                            "HTTPS"
+                            ],
+                            "correct_answers": [
+                            "HTTPS"
+                            ],
+                            "explanation": "HTTPS ist die sichere Version von HTTP und wird für den Zugriff auf Webinhalte verwendet."
+                        },
+                        {
+                            "question": "Welche Anwendungen oder Dienste ermöglichen es Hosts, gleichzeitig als Client und Server zu agieren?",
+                            "options": [
+                            "Client/Server-Anwendungen",
+                            "E-Mail-Anwendungen",
+                            "P2P-Anwendungen",
+                            "Authentifizierungsdienste"
+                            ],
+                            "correct_answers": [
+                            "P2P-Anwendungen"
+                            ],
+                            "explanation": "Peer-to-Peer-Anwendungen erlauben es Hosts, sowohl als Client als auch als Server zu fungieren."
+                        },
+                        {
+                            "question": "Welches Szenario beschreibt eine Funktion der Transportschicht?",
+                            "options": [
+                            "Ein Student verwendet ein VoIP-Telefon im Klassenzimmer, um nach Hause zu telefonieren. Die eindeutige Kennung im Telefon ist eine Adresse der Transportschicht.",
+                            "Ein Student spielt einen kurzen webbasierten Film mit Ton. Der Film und der Ton sind im Transportschicht-Header codiert.",
+                            "Ein Student hat zwei Browserfenster geöffnet, um auf zwei Websites zuzugreifen. Die Transportschicht stellt sicher, dass die richtige Webseite im richtigen Fenster angezeigt wird.",
+                            "Ein Mitarbeiter greift auf einen Webserver im Unternehmensnetzwerk zu. Die Transportschicht formatiert die Anzeige so, dass die Webseite auf jedem Gerät korrekt dargestellt wird."
+                            ],
+                            "correct_answers": [
+                            "Ein Student hat zwei Browserfenster geöffnet, um auf zwei Websites zuzugreifen. Die Transportschicht stellt sicher, dass die richtige Webseite im richtigen Fenster angezeigt wird."
+                            ],
+                            "explanation": "Die Quell- und Zielportnummern identifizieren die richtige Anwendung und das richtige Fenster innerhalb dieser Anwendung."
+                        },
+                        {
+                            "question": "Welche drei OSI-Schichten bieten ähnliche Dienste wie die Anwendungsschicht des TCP/IP-Modells? (Wählen Sie drei.)",
+                            "options": [
+                            "Physikalische Schicht",
+                            "Sitzungsschicht",
+                            "Transportschicht",
+                            "Anwendungsschicht",
+                            "Darstellungsschicht",
+                            "Sicherungsschicht"
+                            ],
+                            "correct_answers": [
+                            "Sitzungsschicht",
+                            "Anwendungsschicht",
+                            "Darstellungsschicht"
+                            ],
+                            "explanation": "Die oberen drei OSI-Schichten – Sitzung, Darstellung und Anwendung – bieten ähnliche Dienste wie die Anwendungsschicht des TCP/IP-Modells."
+                        },
+                        {
+                            "question": "Ein PC kommuniziert mit einem Webserver und hat eine TCP-Fenstergröße von 6.000 Bytes bei einer Paketgröße von 1.500 Bytes. Welches Byte wird der Webserver bestätigen, nachdem er zwei Pakete empfangen hat?",
+                            "options": [
+                            "3001",
+                            "6001",
+                            "4500",
+                            "6000"
+                            ],
+                            "correct_answers": [
+                            "3001"
+                            ]
+                        },
+                        {
+                            "question": "Ein PC kommuniziert mit einem Webserver und hat eine TCP-Fenstergröße von 6.000 Bytes bei einer Paketgröße von 1.500 Bytes. Welches Byte wird der Webserver bestätigen, nachdem er drei Pakete empfangen hat?",
+                            "options": [
+                            "4501",
+                            "6001",
+                            "6000",
+                            "4500"
+                            ],
+                            "correct_answers": [
+                            "4501"
+                            ]
+                        },
+                        {
+                            "question": "Ein PC kommuniziert mit einem Webserver und hat eine TCP-Fenstergröße von 6.000 Bytes bei einer Paketgröße von 1.500 Bytes. Welches Byte wird der Webserver bestätigen, nachdem er vier Pakete empfangen hat?",
+                            "options": [
+                            "6001",
+                            "3001",
+                            "1501",
+                            "1500"
+                            ],
+                            "correct_answers": [
+                            "6001"
+                            ]
+                        },
+                        {
+                            "question": "Ein Client erstellt ein Paket, um es an einen Server zu senden. Der Client fordert TFTP-Dienst an. Welche Nummer wird als Zielportnummer im sendenden Paket verwendet?",
+                            "options": [
+                            "69",
+                            "67",
+                            "53",
+                            "80"
+                            ],
+                            "correct_answers": [
+                            "69"
+                            ]
+                        },
+                        {
+                            "question": "Ein Client erstellt ein Paket, um es an einen Server zu senden. Der Client fordert FTP-Dienst an. Welche Nummer wird als Zielportnummer im sendenden Paket verwendet?",
+                            "options": [
+                            "21",
+                            "69",
+                            "67",
+                            "80"
+                            ],
+                            "correct_answers": [
+                            "21"
+                            ]
+                        },
+                        {
+                            "question": "Ein Client erstellt ein Paket, um es an einen Server zu senden. Der Client fordert SSH-Dienst an. Welche Nummer wird als Zielportnummer im sendenden Paket verwendet?",
+                            "options": [
+                            "22",
+                            "69",
+                            "67",
+                            "80"
+                            ],
+                            "correct_answers": [
+                            "22"
+                            ]
+                        },
+                        {
+                            "question": "Ein Client erstellt ein Paket, um es an einen Server zu senden. Der Client fordert HTTP-Dienst an. Welche Nummer wird als Zielportnummer im sendenden Paket verwendet?",
+                            "options": [
+                            "80",
+                            "67",
+                            "53",
+                            "69"
+                            ],
+                            "correct_answers": [
+                            "80"
+                            ]
+                        },
+                        {
+                            "question": "Ein Client erstellt ein Paket, um es an einen Server zu senden. Der Client fordert POP3-Dienst an. Welche Nummer wird als Zielportnummer im sendenden Paket verwendet?",
+                            "options": [
+                            "110",
+                            "67",
+                            "53",
+                            "69",
+                            "443",
+                            "161",
+                            "80"
+                            ],
+                            "correct_answers": [
+                            "110"
+                            ]
+                        },
+                        {
+                            "question": "Ein Client erstellt ein Paket, um es an einen Server zu senden. Der Client fordert Telnet-Dienst an. Welche Nummer wird als Zielportnummer im sendenden Paket verwendet?",
+                            "options": [
+                            "23",
+                            "443",
+                            "161",
+                            "110"
+                            ],
+                            "correct_answers": [
+                            "23"
+                            ]
+                        },
+                        {
+                            "question": "Ein Client erstellt ein Paket, um es an einen Server zu senden. Der Client fordert SNMP-Dienst an. Welche Nummer wird als Zielportnummer im sendenden Paket verwendet?",
+                            "options": [
+                            "161",
+                            "443",
+                            "110",
+                            "80"
+                            ],
+                            "correct_answers": [
+                            "161"
+                            ]
+                        },
+                        {
+                            "question": "Ein Client erstellt ein Paket, um es an einen Server zu senden. Der Client fordert SMTP-Dienst an. Welche Nummer wird als Zielportnummer im sendenden Paket verwendet?",
+                            "options": [
+                            "25",
+                            "443",
+                            "161",
+                            "110"
+                            ],
+                            "correct_answers": [
+                            "25"
+                            ]
+                        },
+                        {
+                            "question": "Ein Client erstellt ein Paket, um es an einen Server zu senden. Der Client fordert HTTPS-Dienst an. Welche Nummer wird als Zielportnummer im sendenden Paket verwendet?",
+                            "options": [
+                            "443",
+                            "161",
+                            "110",
+                            "80"
+                            ],
+                            "correct_answers": [
+                            "443"
+                            ],
+                            "explanation": "HTTPS ist die sichere Version von HTTP und verwendet standardmäßig Port 443 für die Kommunikation mit Webservern."
+                        }
+                    ]
+                `;
+
+                let data;
+
+                try {
+                    data = JSON.parse(rawJson);
+                } catch (e) {
+                    return showError('Invalid embedded JSON.');
+                }
+
+                if (!Array.isArray(data)) {
+                    return showError('Invalid JSON: expected an array of questions.');
+                }
+
+                questions = shuffle(data).map(q => ({
+                    ...q,
+                    options: Array.isArray(q.options) ? shuffle(q.options) : []
+                }));
+
+                showQuestion();
+
+            } catch (err) {
+                showError('Error loading JSON: ' + err.message);
+                console.error(err);
+            }
+        }
+
+        function showError(msg) {
+            container.textContent = msg;
+        }
+
+        function createEl(tag, props = {}, children = []) {
+            const el = document.createElement(tag);
+            Object.assign(el, props);
+            children.forEach(child => el.appendChild(child));
+            return el;
+        }
+
+        function showQuestion() {
+            container.innerHTML = '';
+            answered = false;
+            nextBtn.textContent = 'Submit';
+
+            if (currentIndex >= questions.length) {
+                return showError('No more questions.');
+            }
+
+            const q = questions[currentIndex];
+            const wrapper = createEl('div');
+
+            wrapper.appendChild(createEl('p', { textContent: q.question || q.title || `Item ${currentIndex + 1}` }));
+
+            if (q.image_url) wrapper.appendChild(createImageBlock(q.image_url));
+
+            wrapper.appendChild(createOptionsList(q));
+
+            wrapper.appendChild(createEl('p', { id: 'explanation-msg', style: 'display:none;' }));
+            wrapper.appendChild(createEl('p', { id: 'result-msg' }));
+            wrapper.appendChild(createEl('div', {
+                className: 'question-counter',
+                textContent: `${currentIndex + 1} / ${questions.length}`
+            }));
+
+            container.appendChild(wrapper);
+        }
+
+        function createImageBlock(url) {
+            const loader = createEl('div', {
+                className: 'image-loader',
+                id: 'main-loader',
+                textContent: 'Loading image...'
+            });
+
+            const img = createEl('img', {
+                src: url,
+                style: 'max-width:100%;max-height:500px;margin-bottom:20px;display:none;'
+            });
+
+            img.onload = () => {
+                loader.style.display = 'none';
+                img.style.display = 'block';
+            };
+
+            img.onerror = () => {
+                loader.textContent = 'Failed to load image';
+                loader.style.color = '#ef4444';
+            };
+
+            return createEl('div', {}, [loader, img]);
+        }
+
+        function createOptionsList(q) {
+            const list = createEl('ul');
+            const isMultiple = q.correct_answers?.length > 1;
+
+            q.options.forEach((opt, i) => {
+                const li = createEl('li', { id: `li-${i}` });
+                const input = createEl('input', {
+                    type: isMultiple ? 'checkbox' : 'radio',
+                    name: 'answer',
+                    value: opt,
+                    id: `opt-${i}`
+                });
+
+                let label;
+
+                if (isImage(opt)) {
+                    input.dataset.isImage = 'true';
+                    label = createImageOption(opt, i);
+                } else {
+                    label = createEl('label', { htmlFor: `opt-${i}`, textContent: opt });
+                }
+
+                li.appendChild(input);
+                li.appendChild(label);
+                list.appendChild(li);
+            });
+
+            list.querySelectorAll('input[data-is-image="true"]').forEach(i => i.checked = true);
+
+            return list;
+        }
+
+        function isImage(opt) {
+            return typeof opt === 'string' &&
+                (opt.endsWith('.png') || opt.endsWith('.jpg') || opt.endsWith('.jpeg') || opt.startsWith('http'));
+        }
+
+        function createImageOption(url, index) {
+            const loader = createEl('div', {
+                className: 'image-loader',
+                id: `loader-${index}`,
+                textContent: 'Loading image...'
+            });
+
+            const img = createEl('img', {
+                src: url,
+                style: 'max-width:100%;max-height:300px;margin-top:10px;cursor:pointer;display:none;'
+            });
+
+            img.onload = () => {
+                loader.style.display = 'none';
+                img.style.display = 'block';
+            };
+
+            img.onerror = () => {
+                loader.textContent = 'Failed to load image';
+                loader.style.color = '#ef4444';
+            };
+
+            return createEl('label', { htmlFor: `opt-${index}` }, [loader, img]);
+        }
+
+        nextBtn.addEventListener('click', () => {
+            const q = questions[currentIndex];
+            const inputs = [...document.querySelectorAll('input[name="answer"]')];
+            const resultMsg = document.getElementById('result-msg');
+            const explanationMsg = document.getElementById('explanation-msg');
+
+            if (answered) {
+                currentIndex++;
+                showQuestion();
+                return;
+            }
+
+            const chosen = inputs.filter(i => i.checked).map(i => i.value);
+
+            if (chosen.length === 0) {
+                resultMsg.textContent = 'Please choose an answer.';
+                return;
+            }
+
+            const correct = chosen.length === q.correct_answers.length &&
+                chosen.every(a => q.correct_answers.includes(a));
+
+            inputs.forEach(i => i.disabled = true);
+
+            if (!correct) {
+                markAnswers(q, chosen);
+                resultMsg.textContent = 'Wrong!';
+                explanationMsg.style.display = 'block';
+                explanationMsg.textContent = q.explanation || 'No explanation available for this question.';
+                nextBtn.textContent = 'Continue';
+            } else {
+                resultMsg.textContent = 'Correct!';
+            }
+
+            answered = true;
+        });
+
+        function markAnswers(q, chosen) {
+            q.options.forEach((opt, index) => {
+                const li = document.getElementById(`li-${index}`);
+                const isCorrect = q.correct_answers.includes(opt);
+                const isChosen = chosen.includes(opt);
+
+                if (isCorrect) {
+                    li.classList.add('correct-answer');
+                    li.style.color = '#8bc34a';
+                }
+                if (isChosen && !isCorrect) {
+                    li.classList.add('wrong-answer');
+                }
+            });
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.code === 'Space' || e.code === 'Enter') {
+                e.preventDefault();
+                nextBtn.click();
+                return;
+            }
+
+            const index = (e.key === '0') ? 9 : Number(e.key) - 1;
+            if (index < 0 || index > 9) return;
+
+            const li = document.getElementById(`li-${index}`);
+            if (!li) return;
+
+            const label = li.querySelector('label');
+            if (label) {
+                e.preventDefault();
+                label.click();
+            }
+        });
+
+        loadQuestions();
+    </script>
+</body>
+
+</html>
