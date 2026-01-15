@@ -234,11 +234,70 @@
             text-decoration: underline;
         }
     </style>
+    <style>
+        .video-container {
+            position: absolute;
+            border: 3px solid red;
+
+            width: 15%;
+            height: auto;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+        }
+
+        .subway {
+            margin-right: 15px;
+            margin-bottom: 20px;
+            right: 0;
+            bottom: 0;
+        }
+
+        .minecraft {
+            margin-left: 15px;
+            margin-bottom: 20px;
+            left: 0;
+            bottom: 0;
+        }
+
+
+        .asmr {
+            margin-right: 15px;
+            margin-top: 20px;
+            right: 0;
+            top: 0;
+        }
+
+
+        .fireplace {
+            margin-left: 15px;
+            margin-top: 20px;
+            left: 0;
+            top: 0;
+        }
+
+        video {
+            width: 100%;
+            height: auto;
+        }
+    </style>
 </head>
 
 <body>
     <div id="questions-container"></div>
     <button id="next-btn">Submit</button>
+    <div class="video-container subway">
+        <video src="subway_surfers.mp4" muted autoplay loop></video>
+    </div>
+    <div class="video-container minecraft">
+        <video src="minecraft.mp4" muted autoplay loop></video>
+    </div>
+    <div class="video-container asmr">
+        <video src="asmr.mp4" muted autoplay loop></video>
+    </div>
+    <div class="video-container fireplace">
+        <video src="fireplace.mp4" muted autoplay loop></video>
+    </div>
     <div class="copyright">
         <a href="https://phoenixthrush.com" target="_blank" rel="noopener noreferrer">© 2025-2026 phoenixthrush</a>
     </div>
