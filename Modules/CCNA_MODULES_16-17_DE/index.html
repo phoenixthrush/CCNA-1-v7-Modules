@@ -1,0 +1,1536 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cisco CCNA v7 - Modules 16-17</title>
+    <meta name="darkreader-lock">
+    <meta name="theme-color" content="#000">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+            font-size: 1.1em;
+            color: #e8e6e1;
+        }
+
+        #questions-container {
+            max-width: 900px;
+            margin: 0 auto 30px;
+            background: #222425;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+            padding: 40px;
+            border: 1px solid #3a3d3f;
+            position: relative;
+        }
+
+        .question-counter {
+            position: absolute;
+            bottom: 20px;
+            right: 30px;
+            font-size: 0.95em;
+            color: #8ab4f8;
+            font-weight: 600;
+        }
+
+        #questions-container>div>p:first-child {
+            font-size: 1.4em;
+            font-weight: 600;
+            color: #e8e6e1;
+            margin-bottom: 25px;
+            line-height: 1.5;
+            white-space: pre-line;
+        }
+
+        #questions-container img {
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        ul {
+            list-style-type: none;
+            margin: 25px 0;
+        }
+
+        li {
+            margin: 12px 0;
+            transition: all 0.3s ease;
+        }
+
+        input[type="radio"],
+        input[type="checkbox"] {
+            display: none;
+        }
+
+        label {
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            background: #2d2e30;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            border: 2px solid #3a3d3f;
+            color: #e8e6e1;
+        }
+
+        label:hover {
+            background: #3a3d3f;
+            border-color: #8ab4f8;
+        }
+
+        input:checked+label {
+            background: #3a3d3f;
+            border-color: #8ab4f8;
+            font-weight: 500;
+            color: #8ab4f8;
+        }
+
+        input:disabled+label {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        li label img {
+            margin: 10px 0 0 0;
+            max-width: 100%;
+            border-radius: 8px;
+        }
+
+        .image-loader {
+            display: inline-block;
+            width: 100%;
+            height: 300px;
+            background: #2d2e30;
+            border-radius: 8px;
+            margin: 10px 0 0 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #8ab4f8;
+            font-weight: 600;
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 0.6;
+            }
+
+            50% {
+                opacity: 1;
+            }
+        }
+
+        #result-msg {
+            margin-top: 25px;
+            font-size: 1.3em;
+            font-weight: 700;
+            padding: 15px 20px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        li[style*="color: green"] label {
+            color: #8bc34a;
+            font-weight: 600;
+            border-color: #8bc34a;
+        }
+
+        li.correct-answer label {
+            border: 2px solid #8bc34a;
+        }
+
+        li.wrong-answer label {
+            border: 2px solid #ef4444;
+        }
+
+        #explanation-msg {
+            margin-top: 20px;
+            padding: 18px 20px;
+            background: #2d2e30;
+            border-left: 4px solid #ff9800;
+            border-radius: 6px;
+            color: #e8e6e1;
+            line-height: 1.6;
+            font-style: normal;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        #next-btn {
+            display: block;
+            margin: 30px auto 0;
+            background: #8ab4f8;
+            color: #181a1b;
+            border: none;
+            padding: 14px 45px;
+            font-size: 1.05em;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(138, 180, 248, 0.3);
+        }
+
+        #next-btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            background: #a8c8ff;
+            box-shadow: 0 6px 20px rgba(138, 180, 248, 0.5);
+        }
+
+        #next-btn:active:not(:disabled) {
+            transform: translateY(0);
+        }
+
+        #next-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        @media (max-width: 768px) {
+            #questions-container {
+                padding: 25px;
+            }
+
+            #questions-container>div>p:first-child {
+                font-size: 1.2em;
+            }
+
+            body {
+                padding: 20px 10px;
+            }
+        }
+
+        .copyright {
+            font-size: 0.85em;
+            color: rgba(232, 230, 225, 0.3);
+            position: fixed;
+            bottom: 15px;
+            right: 20px;
+            margin: 0;
+        }
+
+        .copyright a {
+            color: rgba(232, 230, 225, 0.3);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .copyright a:hover {
+            color: rgba(232, 230, 225, 0.7);
+            text-decoration: underline;
+        }
+
+        .summary-actions {
+            margin-top: 20px;
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .summary-actions button {
+            background: #8ab4f8;
+            color: #181a1b;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(138, 180, 248, 0.3);
+        }
+
+        .summary-actions button:hover {
+            transform: translateY(-2px);
+            background: #a8c8ff;
+            box-shadow: 0 6px 20px rgba(138, 180, 248, 0.5);
+        }
+
+        .review-block {
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid #3a3d3f;
+        }
+
+        .review-explanation {
+            margin-top: 10px;
+            padding: 12px;
+            background: #2d2e30;
+            border-left: 4px solid #ff9800;
+            border-radius: 6px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="questions-container"></div>
+    <button id="next-btn">Submit</button>
+    <div class="copyright">
+        <a href="https://phoenixthrush.com" target="_blank" rel="noopener noreferrer">© 2025-2026 phoenixthrush</a>
+    </div>
+    <script>
+        const ALLOW_SKIP = true;
+
+        function shuffle(arr) {
+            const a = [...arr];
+            for (let i = a.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [a[i], a[j]] = [a[j], a[i]];
+            }
+            return a;
+        }
+
+        const container = document.getElementById('questions-container');
+        const nextBtn = document.getElementById('next-btn');
+
+        let questions = [];
+        let originalQuestions = [];
+
+        let currentIndex = 0;
+        let answered = false;
+
+        let correctCount = 0;
+        let answeredCount = 0;
+        let skippedCount = 0;
+
+        function sanitizeQuestions(data) {
+            const seen = new Set();
+            const cleaned = [];
+
+            for (const item of data) {
+                if (!item || typeof item.question !== 'string') continue;
+
+                const question = item.question.trim();
+                if (!question) continue;
+
+                const optionsRaw = Array.isArray(item.options)
+                    ? item.options.filter(o => typeof o === 'string')
+                    : [];
+                const options = optionsRaw.map(o => o.trim()).filter(o => o.length > 0);
+
+                const optMap = new Map(options.map(o => [o.toLowerCase(), o]));
+
+                const corrRaw = Array.isArray(item.correct_answers)
+                    ? item.correct_answers.filter(o => typeof o === 'string')
+                    : [];
+
+                let correct = [];
+                for (const c of corrRaw) {
+                    const cTrim = c.trim();
+                    if (!cTrim) continue;
+
+                    if (options.includes(cTrim)) {
+                        correct.push(cTrim);
+                        continue;
+                    }
+
+                    const mapped = optMap.get(cTrim.toLowerCase());
+                    if (mapped) correct.push(mapped);
+                }
+
+                correct = [...new Set(correct)];
+
+                if (options.length === 0 || correct.length === 0) continue;
+
+                const key = question.toLowerCase().replace(/\s+/g, ' ');
+                if (seen.has(key)) continue;
+
+                seen.add(key);
+                cleaned.push({ ...item, question, options, correct_answers: correct });
+            }
+
+            return cleaned;
+        }
+
+        async function loadQuestions() {
+            try {
+                const rawJson = `
+                    [
+                        {
+                            "question": "Welche Komponente wurde entwickelt, um vor unbefugten Kommunikationsverbindungen zu und von einem Computer zu schützen?",
+                            "options": [
+                                "Sicherheitscenter",
+                                "Portscanner",
+                                "Antimalware",
+                                "Antivirus",
+                                "Firewall"
+                            ],
+                            "correct_answers": [
+                                "Firewall"
+                            ]
+                        },
+                        {
+                            "question": "Welcher Befehl blockiert auf RouterA für 30 Sekunden alle Login-Versuche, wenn innerhalb von 10 Sekunden zwei fehlgeschlagene Anmeldeversuche auftreten?",
+                            "options": [
+                                "RouterA(config)# login block-for 10 attempts 2 within 30",
+                                "RouterA(config)# login block-for 30 attempts 2 within 10",
+                                "RouterA(config)# login block-for 2 attempts 30 within 10",
+                                "RouterA(config)# login block-for 30 attempts 10 within 2"
+                            ],
+                            "correct_answers": [
+                                "RouterA(config)# login block-for 30 attempts 2 within 10"
+                            ]
+                        },
+                        {
+                            "question": "Was ist der Zweck der Netzwerk-Sicherheitsfunktion Accounting?",
+                            "options": [
+                                "um Benutzer zu verpflichten nachzuweisen, wer sie sind",
+                                "um zu bestimmen, auf welche Ressourcen ein Benutzer zugreifen darf",
+                                "um die Aktionen eines Benutzers nachzuverfolgen",
+                                "um Challenge-Response-Fragen bereitzustellen"
+                            ],
+                            "correct_answers": [
+                                "um die Aktionen eines Benutzers nachzuverfolgen"
+                            ]
+                        },
+                        {
+                            "question": "Welche Art von Angriff kann Werkzeuge wie nslookup und fping verwenden?",
+                            "options": [
+                                "Zugriffsangriff",
+                                "Aufklärungsangriff",
+                                "Denial-of-Service-Angriff",
+                                "Wurmangriff"
+                            ],
+                            "correct_answers": [
+                                "Aufklärungsangriff"
+                            ]
+                        },
+                        {
+                            "question": "Ordne jede Schwachstelle einem Beispiel zu. (Nicht alle Optionen werden verwendet.)",
+                            "options": [],
+                            "correct_answers": [],
+                            "explanation": "Ein Mitarbeiter, der versucht das Passwort eines anderen Benutzers zu erraten, ist kein Beispiel für eine Schwachstelle, sondern für einen Angriff."
+                        },
+                        {
+                            "question": "Ordne die Art der Bedrohung der Informationssicherheit dem Szenario zu. (Nicht alle Optionen werden verwendet.) Erklärung: Nachdem ein Eindringling Zugang zu einem Netzwerk erlangt hat, gehören zu den häufigsten Bedrohungen: Informationsdiebstahl, Identitätsdiebstahl, Datenverlust oder Datenmanipulation, Dienstunterbrechung. Das Knacken des Passworts eines bekannten Benutzernamens ist ein Zugriffsangriff. 7. Welches Beispiel für bösartigen Code wäre als Trojanisches Pferd einzustufen?",
+                            "options": [
+                                "Schadsoftware, die so entwickelt wurde, dass sie wie ein Videospiel aussieht",
+                                "Schadsoftware, die manuelle Benutzerinteraktion benötigt, um sich zu verbreiten",
+                                "Schadsoftware, die sich an ein legitimes Programm anhängt und sich beim Start weiterverbreitet",
+                                "Schadsoftware, die sich automatisch ausbreitet, indem sie eine Schwachstelle ausnutzt"
+                            ],
+                            "correct_answers": [
+                                "Schadsoftware, die so entwickelt wurde, dass sie wie ein Videospiel aussieht"
+                            ],
+                            "explanation": "Ein Trojanisches Pferd ist bösartiger Code, der so geschrieben wurde, dass er wie ein legitimes Programm aussieht. Ein Virus hängt sich hingegen an ein echtes Programm an und verbreitet sich manuell, während ein Wurm sich automatisch ausbreiten kann."
+                        },
+                        {
+                            "question": "Was ist der Unterschied zwischen einem Virus und einem Wurm?",
+                            "options": [
+                                "Viren replizieren sich selbst, aber Würmer nicht.",
+                                "Würmer replizieren sich selbst, Viren nicht.",
+                                "Würmer benötigen eine Host-Datei, Viren nicht.",
+                                "Viren verstecken sich in legitimen Programmen, Würmer nicht."
+                            ],
+                            "correct_answers": [
+                                "Würmer replizieren sich selbst, Viren nicht."
+                            ],
+                            "explanation": "Würmer können sich selbst replizieren und über Netzwerke verbreiten, ohne dass ein Benutzer eingreifen muss."
+                        },
+                        {
+                            "question": "Welcher Angriff umfasst das Abfangen oder Manipulieren von Daten zwischen zwei Endpunkten?",
+                            "options": [
+                                "Denial-of-Service",
+                                "Man-in-the-Middle-Angriff",
+                                "Extraktion von Sicherheitsparametern",
+                                "Benutzernamen-Enumeration"
+                            ],
+                            "correct_answers": [
+                                "Man-in-the-Middle-Angriff"
+                            ],
+                            "explanation": "Ein MITM-Angriff ermöglicht es Angreifern, sich zwischen Kommunikationspartner zu setzen und Daten abzufangen oder zu verändern."
+                        },
+                        {
+                            "question": "Welche Art von Angriff beinhaltet, dass ein Angreifer Informationen über ein Netzwerk sammelt, um Schwachstellen zu identifizieren?",
+                            "options": [
+                                "Aufklärung",
+                                "DoS",
+                                "Wörterbuchangriff",
+                                "Man-in-the-Middle"
+                            ],
+                            "correct_answers": [
+                                "Aufklärung"
+                            ],
+                            "explanation": "Aufklärungsangriffe dienen dem Sammeln von Informationen über ein Netzwerk und dessen Schwachstellen."
+                        },
+                        {
+                            "question": "Ordne die Beschreibung der jeweiligen Firewall-Filtermethode zu. (Nicht alle Optionen werden verwendet.) Erklärung: Stateful Packet Inspection: verhindert oder erlaubt Zugriff basierend darauf, ob der Verkehr eine Antwort auf interne Anfragen ist. URL-Filterung: verhindert oder erlaubt Zugriff basierend auf Webadressen oder Schlüsselwörtern. Anwendungsfilterung: verhindert oder erlaubt Zugriff basierend auf verwendeten Portnummern. Paketfilterung: verhindert oder erlaubt Zugriff basierend auf IP- oder MAC-Adressen. 12. Was ist der Zweck der Authentifizierungsfunktion in der Netzwerksicherheit?",
+                            "options": [
+                                "um Benutzer zu verpflichten nachzuweisen, wer sie sind",
+                                "um zu bestimmen, auf welche Ressourcen ein Benutzer zugreifen kann",
+                                "um die Aktionen eines Benutzers nachzuverfolgen",
+                                "um Challenge-Response-Fragen bereitzustellen"
+                            ],
+                            "correct_answers": [
+                                "um Benutzer zu verpflichten nachzuweisen, wer sie sind"
+                            ],
+                            "explanation": "Authentifizierung, Autorisierung und Accounting bilden AAA. Authentifizierung überprüft die Identität eines Benutzers."
+                        },
+                        {
+                            "question": "Welche Firewall-Funktion stellt sicher, dass eintreffende Pakete legitime Antworten auf Anfragen interner Hosts sind?",
+                            "options": [
+                                "Stateful Packet Inspection",
+                                "URL-Filterung",
+                                "Anwendungsfilterung",
+                                "Paketfilterung"
+                            ],
+                            "correct_answers": [
+                                "Stateful Packet Inspection"
+                            ],
+                            "explanation": "Stateful Packet Inspection prüft, ob eingehende Pakete zu bestehenden Verbindungen gehören."
+                        },
+                        {
+                            "question": "Welcher Befehl auf einem Router hilft, Brute-Force-Passwortangriffe zu verhindern?",
+                            "options": [
+                                "exec-timeout 30",
+                                "service password-encryption",
+                                "banner motd $Max failed logins = 5$",
+                                "login block-for 60 attempts 5 within 60"
+                            ],
+                            "correct_answers": [
+                                "login block-for 60 attempts 5 within 60"
+                            ],
+                            "explanation": "login block-for begrenzt fehlgeschlagene Loginversuche und erschwert so Brute-Force-Attacken."
+                        },
+                        {
+                            "question": "Identifiziere die Schritte, die notwendig sind, um einen Switch für SSH zu konfigurieren. (Nicht alle Optionen werden verwendet.)",
+                            "options": [],
+                            "correct_answers": [],
+                            "explanation": "login und password cisco werden bei Telnet genutzt, aber nicht bei SSH."
+                        },
+                        {
+                            "question": "Welche Eigenschaft von SSH macht es sicherer als Telnet für die Geräteverwaltung?",
+                            "options": [
+                                "Vertraulichkeit durch IPsec",
+                                "stärkere Passwortanforderungen",
+                                "zufällige einmalige Portverbindung",
+                                "Verschlüsselung der Login-Informationen und Daten"
+                            ],
+                            "correct_answers": [
+                                "Verschlüsselung der Login-Informationen und Daten"
+                            ],
+                            "explanation": "SSH verschlüsselt sowohl Anmeldeinformationen als auch übertragenen Datenverkehr."
+                        },
+                        {
+                            "question": "Welcher Vorteil besteht bei der Verwendung von SSH gegenüber Telnet?",
+                            "options": [
+                                "SSH ist einfacher zu verwenden.",
+                                "SSH ist schneller als Telnet.",
+                                "SSH bietet sichere Kommunikation zum Zugriff auf Hosts.",
+                                "SSH unterstützt Authentifizierung für Verbindungsanfragen."
+                            ],
+                            "correct_answers": [
+                                "SSH bietet sichere Kommunikation zum Zugriff auf Hosts."
+                            ],
+                            "explanation": "SSH verschlüsselt die Verbindung vollständig und schützt so die Kommunikation."
+                        },
+                        {
+                            "question": "Welche Aufgabe erfüllt ein IPS?",
+                            "options": [
+                                "Erkennung und Blockierung von Angriffen in Echtzeit",
+                                "Verbindung globaler Bedrohungsinformationen mit Cisco-Sicherheitsgeräten",
+                                "Authentifizierung und Validierung von Datenverkehr",
+                                "Filtern bösartiger Websites"
+                            ],
+                            "correct_answers": [
+                                "Erkennung und Blockierung von Angriffen in Echtzeit"
+                            ],
+                            "explanation": "Ein Intrusion Prevention System erkennt und blockiert Angriffe unmittelbar."
+                        },
+                        {
+                            "question": "Ein Benutzer gestaltet das Netzwerk eines kleinen Unternehmens neu und möchte Sicherheit zu einem vernünftigen Preis gewährleisten. Er setzt eine neue anwendungsbewusste Firewall mit IDS am ISP-Anschluss ein, eine zweite Firewall zum Trennen des Unternehmensnetzwerks vom öffentlichen Netz und ein IPS im internen Netz. Welcher Ansatz wird umgesetzt?",
+                            "options": [
+                                "angriffsbasiert",
+                                "risikobasiert",
+                                "strukturiert",
+                                "mehrschichtig"
+                            ],
+                            "correct_answers": [
+                                "mehrschichtig"
+                            ],
+                            "explanation": "Mehrere Sicherheitsmaßnahmen in verschiedenen Netzebenen ergeben einen Layered-Security-Ansatz."
+                        },
+                        {
+                            "question": "Welche Beschreibung trifft auf Redundanz zu?",
+                            "options": [
+                                "Konfiguration eines Routers mit vollständiger MAC-Adresse-Datenbank",
+                                "Konfiguration eines Switches mit Sicherheitsfiltern für jeden Port",
+                                "Verwendung mehrerer virtueller Geräte zur Sicherstellung optimaler Pfade",
+                                "Verwendung mehrerer physischer Pfade zwischen Switches, um Einzelpunkte des Ausfalls zu vermeiden"
+                            ],
+                            "correct_answers": [
+                                "Verwendung mehrerer physischer Pfade zwischen Switches, um Einzelpunkte des Ausfalls zu vermeiden"
+                            ],
+                            "explanation": "Redundanz verhindert Ausfälle durch alternative Netzwerkpfade."
+                        },
+                        {
+                            "question": "Ein Administrator rüstet ein Netzwerk auf, um Verkehr in Echtzeit zu priorisieren. Welche zwei Dienste sollen unterstützt werden? (Wähle zwei.)",
+                            "options": [
+                                "Voice",
+                                "Video",
+                                "Instant Messaging",
+                                "FTP",
+                                "SNMP"
+                            ],
+                            "correct_answers": [
+                                "voice",
+                                "video"
+                            ],
+                            "explanation": "Voice- und Videodaten benötigen geringe Verzögerung und hohe Priorität."
+                        },
+                        {
+                            "question": "Warum nutzt ein kleines Unternehmen einen Protokollanalysator, um Netzwerkverkehr in den Segmenten zu erfassen, an denen ein Upgrade geplant ist?",
+                            "options": [
+                                "um Quelle und Ziel des lokalen Netzwerkverkehrs zu identifizieren",
+                                "um den erforderlichen Internet-Bandbreitenbedarf zu erfassen",
+                                "um Netzwerkverkehr und Anforderungen in jedem Segment zu dokumentieren und zu analysieren",
+                                "um eine Basislinie für spätere Sicherheitsanalysen nach dem Upgrade zu erstellen"
+                            ],
+                            "correct_answers": [
+                                "um Netzwerkverkehr und Anforderungen in jedem Segment zu dokumentieren und zu analysieren"
+                            ],
+                            "explanation": "Vor geplanten Netzwerkerweiterungen sollte analysiert werden, wie viel und welche Art von Daten in jedem Netzsegment übertragen werden."
+                        },
+                        {
+                            "question": "Ein Administrator testet die Konnektivität zu einem Gerät mit der IP-Adresse 10.1.1.1. Was bedeutet die Ausgabe des Befehls? (!) bedeutet erfolgreiche Antwort, (.) bedeutet Zeitüberschreitung, (U) bedeutet, dass ein Router keine Route hat. 24. Welche Methode wird verwendet, um einen Ping mit einer bestimmten Quelladresse zu senden?",
+                            "options": [
+                                "Den Ping-Befehl ausführen, während man sich im Interface-Konfigurationsmodus befindet",
+                                "Den Ping-Befehl ohne Ziel-IP ausführen",
+                                "Den Ping-Befehl ohne erweiterte Befehle ausführen",
+                                "Nicht benötigte Schnittstellen deaktivieren und dann pingen"
+                            ],
+                            "correct_answers": [
+                                "Den Ping-Befehl ohne Ziel-IP ausführen"
+                            ],
+                            "explanation": "Ein Ping ohne Zieladresse aktiviert den erweiterten Ping-Modus, in dem eine Quelladresse gewählt werden kann."
+                        },
+                        {
+                            "question": "Ein Netzwerkingenieur analysiert Baseline-Berichte. Welche Situation weist auf mögliche Latenzprobleme hin?",
+                            "options": [
+                                "eine Änderung der Bandbreite laut show interfaces",
+                                "ein Next-Hop-Timeout in traceroute",
+                                "eine Zunahme der Ping-Antwortzeiten zwischen Hosts",
+                                "eine Änderung der RAM-Menge laut show version"
+                            ],
+                            "correct_answers": [
+                                "eine Zunahme der Ping-Antwortzeiten zwischen Hosts"
+                            ],
+                            "explanation": "Steigende Ping-Zeiten weisen häufig auf Verzögerungen oder Überlastungen im Netzwerk hin."
+                        },
+                        {
+                            "question": "Welche Aussage über Cisco-IOS-Ping-Indikatoren ist korrekt?",
+                            "options": [
+                                "'!' zeigt einen fehlgeschlagenen Ping durch DNS-Probleme an.",
+                                "'U' zeigt an, dass ein Router keine Route zum Ziel hat und der Ping fehlschlug.",
+                                "'.' zeigt einen erfolgreichen Ping mit langer Antwortzeit.",
+                                "Eine Kombination aus '.' und '!' zeigt eine ICMP-Unreachable-Antwort an."
+                            ],
+                            "correct_answers": [
+                                "'U' zeigt an, dass ein Router keine Route zum Ziel hat und der Ping fehlschlug."
+                            ],
+                            "explanation": "'U' steht für *Unreachable* und bedeutet, dass ein Router keine Route kannte und ein ICMP Unreachable zurückgab."
+                        },
+                        {
+                            "question": "Ein Benutzer meldet fehlende Konnektivität. Der Techniker übernimmt den PC und pingt andere Geräte - ohne Erfolg. Der Ping zum Standardgateway schlägt ebenfalls fehl. Was kann sicher festgestellt werden?",
+                            "options": [
+                                "Die Netzwerkkarte ist defekt.",
+                                "TCP/IP ist nicht aktiviert.",
+                                "Der Router im gleichen Netz ist ausgefallen.",
+                                "Es kann noch nichts sicher festgestellt werden."
+                            ],
+                            "correct_answers": [
+                                "Es kann noch nichts sicher festgestellt werden."
+                            ],
+                            "explanation": "Pings können durch Firewalls oder Policies blockiert werden — weitere Diagnose ist notwendig."
+                        },
+                        {
+                            "question": "Ein Techniker führt unter Windows den Befehl: tracert -6 www.cisco.com aus. Wozu dient die Option -6?",
+                            "options": [
+                                "Sie erzwingt die Nutzung von IPv6.",
+                                "Sie begrenzt die Route auf 6 Hops.",
+                                "Sie setzt ein Timeout von 6 Millisekunden.",
+                                "Sie sendet 6 Probes pro TTL."
+                            ],
+                            "correct_answers": [
+                                "Sie erzwingt die Nutzung von IPv6."
+                            ],
+                            "explanation": "Die Option -6 sorgt dafür, dass Traceroute IPv6 anstatt IPv4 nutzt."
+                        },
+                        {
+                            "question": "Warum würde ein Netzwerkadministrator das Dienstprogramm tracert verwenden?",
+                            "options": [
+                                "um aktive TCP-Verbindungen einer PC-Sitzung zu sehen",
+                                "um DNS-Informationen auf dem DNS-Server abzufragen",
+                                "um festzustellen, wo ein Paket unterwegs verloren geht oder Verzögerungen auftreten",
+                                "um IP-Adresse, Gateway und DNS-Server eines PCs anzuzeigen"
+                            ],
+                            "correct_answers": [
+                                "um festzustellen, wo ein Paket unterwegs verloren geht oder Verzögerungen auftreten"
+                            ],
+                            "explanation": "Traceroute zeigt jeden Hop und die Antwortzeiten — ideal bei Routing- oder Verbindungsproblemen."
+                        },
+                        {
+                            "question": "Ein Ping von Router R1 zu R2 schlägt fehl. Der Administrator führt show cdp neighbors aus. Warum?",
+                            "options": [
+                                "Er vermutet einen Virus wegen des fehlgeschlagenen Pings.",
+                                "Er möchte Layer-2-Konnektivität prüfen.",
+                                "Er möchte die IP-Adresse von R2 überprüfen.",
+                                "Er möchte Konnektivität aus einem entfernten Netz prüfen."
+                            ],
+                            "correct_answers": [
+                                "Er möchte Layer-2-Konnektivität prüfen."
+                            ],
+                            "explanation": "CDP zeigt, ob Geräte physisch verbunden sind (Layer 1/2), unabhängig von IP-Problemen."
+                        },
+                        {
+                            "question": "Ein Netzwerkingenieur möchte IP-Adresse, Hostname und IOS-Version benachbarter Geräte sehen. Welcher Befehl wird genutzt?",
+                            "options": [
+                                "show version",
+                                "show ip route",
+                                "show interfaces",
+                                "show cdp neighbors detail"
+                            ],
+                            "correct_answers": [
+                                "show cdp neighbors detail"
+                            ],
+                            "explanation": "Dieser Befehl zeigt umfassende Informationen über benachbarte Cisco-Geräte."
+                        },
+                        {
+                            "question": "Welche Information über einen Cisco-Router kann mit dem Befehl show version überprüft werden?",
+                            "options": [
+                                "die Version des aktivierten Routingprotokolls",
+                                "der Wert des Konfigurationsregisters",
+                                "der Betriebsstatus der seriellen Schnittstellen",
+                                "die administrativen Distanzen zu entfernten Netzwerken"
+                            ],
+                            "correct_answers": [
+                                "er Wert des Konfigurationsregisters"
+                            ],
+                            "explanation": "Mit show version lässt sich unter anderem der aktuelle Wert des Konfigurationsregisters anzeigen."
+                        },
+                        {
+                            "question": "Welcher Befehl muss auf einem Router oder Switch ausgeführt werden, damit Log-Meldungen in einer Telnet- oder SSH-Sitzung angezeigt werden?",
+                            "options": [
+                                "debug all",
+                                "logging synchronous",
+                                "show running-config",
+                                "terminal monitor"
+                            ],
+                            "correct_answers": [
+                                "terminal monitor"
+                            ],
+                            "explanation": "terminal monitor aktiviert die Ausgabe von Logmeldungen auf entfernten Sessions."
+                        },
+                        {
+                            "question": "Welchen Befehl kann ein Administrator auf einem Cisco-Router ausführen, um Debug-Meldungen an die vty-Lines zu senden?",
+                            "options": [
+                                "terminal monitor",
+                                "logging console",
+                                "logging buffered",
+                                "logging synchronous"
+                            ],
+                            "correct_answers": [
+                                "terminal monitor"
+                            ],
+                            "explanation": "Debug-Meldungen erscheinen standardmäßig nur an der Konsole — terminal monitor aktiviert sie für vty-Sessions."
+                        },
+                        {
+                            "question": "Ein Administrator hat durch ein strukturiertes Vorgehen im Gespräch mit einem Benutzer ein Problem identifiziert. Welcher Schritt folgt als Nächstes?",
+                            "options": [
+                                "Vollständige Systemfunktionalität verifizieren.",
+                                "Die Theorie testen, um die Ursache zu bestätigen.",
+                                "Eine Theorie wahrscheinlicher Ursachen aufstellen.",
+                                "Einen Aktionsplan zur Problemlösung erstellen."
+                            ],
+                            "correct_answers": [
+                                "Eine Theorie wahrscheinlicher Ursachen aufstellen."
+                            ],
+                            "explanation": "Nach der Problemermittlung folgt immer das Aufstellen möglicher Ursachen."
+                        },
+                        {
+                            "question": "Benutzer melden, dass einige Webseiten nicht erreichbar sind. Der Administrator kann die Webserver-IP anpingen, aber nicht den Domainnamen. Welches Werkzeug ist am nützlichsten, um den Fehler zu finden?",
+                            "options": [
+                                "netstat",
+                                "tracert",
+                                "nslookup",
+                                "ipconfig"
+                            ],
+                            "correct_answers": [
+                                "nslookup"
+                            ],
+                            "explanation": "nslookup prüft DNS-Auflösung und zeigt, ob der Domainname korrekt zugeordnet wird."
+                        },
+                        {
+                            "question": "Ein Windows-PC erhält die IP-Adresse 169.254.10.3. Welche zwei Schlussfolgerungen können gezogen werden? (Wähle zwei.)",
+                            "options": [
+                                "Der PC kann keinen DHCP-Server erreichen.",
+                                "Die DNS-Adresse ist falsch konfiguriert.",
+                                "Das Standardgateway fehlt.",
+                                "Der PC ist auf automatische IP-Zuweisung eingestellt.",
+                                "Das Unternehmensnetz ist falsch für dynamisches Routing konfiguriert."
+                            ],
+                            "correct_answers": [
+                                "Der PC kann keinen DHCP-Server erreichen.",
+                                "Der PC ist auf automatische IP-Zuweisung eingestellt."
+                            ],
+                            "explanation": "169.254.x.x ist eine APIPA-Adresse — sie wird vergeben, wenn kein DHCP-Server erreicht wurde."
+                        },
+                        {
+                            "question": "Ein Administrator möchte vom Router R2 aus überprüfen, ob über dessen Interface Konnektivität zu Host H1 besteht. Welches Werkzeug sollte verwendet werden?",
+                            "options": [
+                                "traceroute",
+                                "show cdp neighbors",
+                                "Telnet",
+                                "ein erweiterter Ping"
+                            ],
+                            "correct_answers": [
+                                "ein erweiterter Ping"
+                            ],
+                            "explanation": "Ein erweiterter Ping erlaubt das Festlegen der Quelladresse — ideal für diesen Test."
+                        },
+                        {
+                            "question": "Ein Administrator vergleicht aktuelle Ping-Statistiken mit den in der Baseline gespeicherten Werten. Die aktuellen Round-Trip-Zeiten sind deutlich höher. Was bedeutet das?",
+                            "options": [
+                                "Die Verbindung zwischen H1 und H3 ist einwandfrei.",
+                                "H3 ist falsch mit dem Netzwerk verbunden.",
+                                "Zwischen H1 und R1 gibt es Störungen.",
+                                "Die Leistung entspricht den erwarteten Parametern.",
+                                "Es tritt eine Zeitverzögerung zwischen den Netzwerken auf."
+                            ],
+                            "correct_answers": [
+                                "Es tritt eine Zeitverzögerung zwischen den Netzwerken auf."
+                            ],
+                            "explanation": "Stark erhöhte RTT-Werte weisen klar auf ein Latenz- oder Überlastproblem hin."
+                        },
+                        {
+                            "question": "Welcher Netzwerkdienst weist Geräten automatisch IP-Adressen zu?",
+                            "options": [
+                                "DHCP",
+                                "Telnet",
+                                "DNS",
+                                "Traceroute"
+                            ],
+                            "correct_answers": [
+                                "DHCP"
+                            ],
+                            "explanation": "DHCP weist automatisch IP-Adresse, Gateway, DNS und Subnetzmaske zu."
+                        },
+                        {
+                            "question": "Welcher Befehl zeigt an, welches Interface ein Router zur Erreichung entfernter Netzwerke nutzt?",
+                            "options": [
+                                "show arp",
+                                "show interfaces",
+                                "show ip route",
+                                "show protocols"
+                            ],
+                            "correct_answers": [
+                                "show ip route"
+                            ],
+                            "explanation": "show ip route zeigt die vollständige Routingtabelle inklusive Next-Hops und Interfaces."
+                        },
+                        {
+                            "question": "Auf welchen zwei Schnittstellen oder Ports kann die Sicherheit durch das Konfigurieren von Executive-Timeouts verbessert werden? (Wähle zwei.)",
+                            "options": [
+                                "Fast-Ethernet-Schnittstellen",
+                                "Konsolenports",
+                                "Serielle Schnittstellen",
+                                "VTY-Ports",
+                                "Loopback-Schnittstellen"
+                            ],
+                            "correct_answers": [
+                                "console ports",
+                                "vty ports"
+                            ],
+                            "explanation": "Executive-Timeouts trennen Benutzer automatisch nach einer Leerlaufzeit. Sie können auf Konsole, VTY und Aux-Ports verwendet werden."
+                        },
+                        {
+                            "question": "Ein Netzwerkingenieur konfiguriert SSH auf einem Router. login local und transport input ssh wurden bereits unter den VTY-Lines eingegeben. Welche drei zusätzlichen Schritte sind notwendig, um SSH vollständig zu konfigurieren? (Wähle drei.)",
+                            "options": [
+                                "Benutzer-Privilege-Levels setzen",
+                                "asymmetrische RSA-Schlüssel generieren",
+                                "den richtigen IP-Domain-Namen konfigurieren",
+                                "rollenbasierte CLI-Zugriffe konfigurieren",
+                                "eine gültige lokale Benutzer- und Passwortdatenbank erstellen",
+                                "SSH manuell aktivieren, nachdem die RSA-Schlüssel generiert wurden"
+                            ],
+                            "correct_answers": [
+                                "asymmetrische RSA-Schlüssel generieren",
+                                "den richtigen IP-Domain-Namen konfigurieren",
+                                "eine gültige lokale Benutzer- und Passwortdatenbank erstellen"
+                            ],
+                            "explanation": "SSH wird automatisch aktiviert, sobald RSA-Schlüssel generiert wurden. Lokale Benutzer und Domain-Name sind erforderlich."
+                        },
+                        {
+                            "question": "Was gilt als die effektivste Methode, um einen Wurmangriff zu verhindern?",
+                            "options": [
+                                "Passwörter alle 30 Tage ändern",
+                                "Sicherstellen, dass alle Systeme aktuelle Virensignaturen haben",
+                                "AAA im Netzwerk konfigurieren",
+                                "Lade Sicherheitsupdates vom Betriebssystemanbieter herunter und patch alle verwundbaren Systeme."
+                            ],
+                            "correct_answers": [
+                                "Lade Sicherheitsupdates vom Betriebssystemanbieter herunter und patch alle verwundbaren Systeme."
+                            ],
+                            "explanation": "Würmer nutzen Schwachstellen im System selbst aus — Patching ist daher die stärkste Gegenmaßnahme."
+                        },
+                        {
+                            "question": "Welche Aussage beschreibt die Befehle ping und tracert korrekt?",
+                            "options": [
+                                "Tracert zeigt jeden Hop, während ping nur die Zielantwort zeigt.",
+                                "Tracert nutzt IP-Adressen, ping nicht.",
+                                "Beide können grafische Ergebnisse anzeigen.",
+                                "Ping zeigt Erfolg, tracert tut dies nicht."
+                            ],
+                            "correct_answers": [
+                                "Tracert zeigt jeden Hop, während ping nur die Zielantwort zeigt."
+                            ],
+                            "explanation": "Ping prüft nur End-zu-End-Konnektivität, tracert zeigt alle Zwischenstationen (Hops)."
+                        },
+                        {
+                            "question": "Ein Techniker soll Konfigurationen aller Netzwerkgeräte dokumentieren, auch der Geräte an Außenstandorten. Welches Protokoll eignet sich am besten für einen sicheren Zugriff?",
+                            "options": [
+                                "FTP",
+                                "HTTP",
+                                "SSH",
+                                "Telnet"
+                            ],
+                            "correct_answers": [
+                                "SSH"
+                            ],
+                            "explanation": "SSH verschlüsselt den gesamten Datenverkehr, Telnet nicht. FTP und HTTP ermöglichen keine sichere Gerätekonfiguration."
+                        },
+                        {
+                            "question": "In der PT-Aktivität fehlt ein Befehl für die vollständige SSH-Konfiguration. Welcher ist es?",
+                            "options": [
+                                "service password-encryption",
+                                "transport input ssh",
+                                "enable secret class",
+                                "ip domain-name cisco.com"
+                            ],
+                            "correct_answers": [
+                                "transport input ssh"
+                            ],
+                            "explanation": "transport input ssh aktiviert auf den VTY-Lines ausschließlich SSH-Traffic."
+                        },
+                        {
+                            "question": "Ein Administrator wählt das Passwort „WhatAreyouwaiting4“ für einen neuen Router. Welche Aussage trifft zu?",
+                            "options": [
+                                "Es ist stark, weil es eine Passphrase ist.",
+                                "Es ist schwach, weil es oft ein Standardpasswort ist.",
+                                "Es ist schwach, weil es persönliche Daten enthält.",
+                                "Es ist schwach, weil es ein Wörterbuchwort ist."
+                            ],
+                            "correct_answers": [
+                                "Es ist stark, weil es eine Passphrase ist."
+                            ]
+                        },
+                        {
+                            "question": "Ein Administrator wählt das Passwort „pR3s!d7n&0“. Welche Aussage trifft zu?",
+                            "options": [
+                                "Es ist stark, weil es mindestens 10 Zeichen mit Sonderzeichen enthält.",
+                                "Es ist schwach, weil es oft ein Standardpasswort ist.",
+                                "Es ist schwach, weil es persönliche Informationen enthält.",
+                                "Es ist schwach, weil es im Wörterbuch steht."
+                            ],
+                            "correct_answers": [
+                                "Es ist stark, weil es mindestens 10 Zeichen mit Sonderzeichen enthält."
+                            ]
+                        },
+                        {
+                            "question": "Ein Administrator verwendet das Passwort „5$7*4#033!“. Welche Aussage trifft zu?",
+                            "options": [
+                                "Es ist stark, weil es 10 Zahlen und Sonderzeichen enthält.",
+                                "Es ist schwach, weil es ein Standardpasswort ist.",
+                                "Es ist schwach, weil es persönliche Informationen enthält.",
+                                "Es ist stark, weil es mindestens 10 gemischte Zeichen enthält."
+                            ],
+                            "correct_answers": [
+                                "Es ist stark, weil es 10 Zahlen und Sonderzeichen enthält."
+                            ]
+                        },
+                        {
+                            "question": "Ein Administrator verwendet erneut das Passwort „pR3s!d7n&0“. Welche Aussage trifft zu?",
+                            "options": [
+                                "Es ist stark, weil es mindestens 10 Zahlen, Buchstaben und Sonderzeichen verwendet.",
+                                "Es ist schwach, weil es ein leicht zu findendes Wörterbuchwort ist.",
+                                "Es ist stark, weil es eine Passphrase ist.",
+                                "Es ist stark, weil es 10 Zahlen und Sonderzeichen enthält."
+                            ],
+                            "correct_answers": [
+                                "Es ist stark, weil es mindestens 10 Zahlen, Buchstaben und Sonderzeichen verwendet."
+                            ]
+                        },
+                        {
+                            "question": "Das Passwort „12345678!“ wird auf einem neu installierten Router verwendet. Welche Aussage trifft zu?",
+                            "options": [
+                                "Es ist schwach, weil es eine einfache Zahlenfolge ist.",
+                                "Es ist stark, weil es eine Passphrase ist.",
+                                "Es ist schwach, weil es ein Wörterbuchwort ist.",
+                                "Es ist stark, weil es mindestens 10 verschiedene Zeichen enthält."
+                            ],
+                            "correct_answers": [
+                                "Es ist schwach, weil es eine einfache Zahlenfolge ist."
+                            ]
+                        },
+                        {
+                            "question": "Das Passwort „admin“ wird gesetzt. Welche Aussage trifft zu?",
+                            "options": [
+                                "Es ist schwach, weil es häufig ein Standardpasswort ist.",
+                                "Es ist stark, weil es eine Passphrase ist.",
+                                "Es ist stark, weil es mindestens 10 komplexe Zeichen hat.",
+                                "Es ist stark, weil es Sonderzeichen und Zahlen enthält."
+                            ],
+                            "correct_answers": [
+                                "Es ist schwach, weil es häufig ein Standardpasswort ist."
+                            ]
+                        },
+                        {
+                            "question": "Das Passwort „Feb121978“ wird gewählt. Welche Aussage trifft zu?",
+                            "options": [
+                                "Es ist schwach, weil es leicht auffindbare persönliche Informationen enthält.",
+                                "Es ist stark, weil es eine Passphrase ist.",
+                                "Es ist schwach, weil es ein Wörterbuchwort ist.",
+                                "Es ist stark, weil es mindestens 10 komplexe Zeichen enthält."
+                            ],
+                            "correct_answers": [
+                                "Es ist schwach, weil es leicht auffindbare persönliche Informationen enthält."
+                            ]
+                        },
+                        {
+                            "question": "Das Passwort „password“ wird verwendet. Welche Aussage trifft zu?",
+                            "options": [
+                                "Es ist schwach, weil es ein häufig verwendetes Passwort ist.",
+                                "Es ist schwach, weil es im Wörterbuch steht.",
+                                "Es ist stark, weil es eine Passphrase ist.",
+                                "Es ist stark, wegen mindestens 10 komplexen Zeichen."
+                            ],
+                            "correct_answers": [
+                                "Es ist schwach, weil es ein häufig verwendetes Passwort ist."
+                            ]
+                        },
+                        {
+                            "question": "Das Passwort „RobErT“ wird gesetzt. Welche Aussage trifft zu?",
+                            "options": [
+                                "Es ist schwach, weil es persönliche Informationen enthält.",
+                                "Es ist stark, weil es eine Passphrase ist.",
+                                "Es ist stark, weil es mindestens 10 komplexe Zeichen enthält.",
+                                "Es ist stark, weil es 10 Sonderzeichen und Zahlen hat."
+                            ],
+                            "correct_answers": [
+                                "Es ist schwach, weil es persönliche Informationen enthält."
+                            ]
+                        },
+                        {
+                            "question": "Das Passwort „Elizabeth“ wird verwendet. Welche Aussage trifft zu?",
+                            "options": [
+                                "Es ist schwach, weil es persönliche Informationen enthält.",
+                                "Es ist stark, weil es eine Passphrase ist.",
+                                "Es ist schwach, weil es ein Wörterbuchwort ist.",
+                                "Es ist stark, weil es mindestens 10 komplexe Zeichen enthält."
+                            ],
+                            "correct_answers": [
+                                "Es ist schwach, weil es persönliche Informationen enthält."
+                            ],
+                            "explanation": "Regeln für starke Passwörter: mindestens 8-10 Zeichen; komplexe Kombination aus Zahlen, Sonderzeichen, Groß-/Kleinschreibung; keine Namen, Geburtstage, einfache Muster oder Wörterbuchbegriffe."
+                        },
+                        {
+                            "question": "Ein Netzwerkadministrator muss die IP-Adressen aller Router-Interfaces überprüfen. Welcher Befehl ist am besten geeignet?",
+                            "options": [
+                                "show ip interface brief",
+                                "nslookup",
+                                "ipconfig getifaddr en0",
+                                "show ip route"
+                            ],
+                            "correct_answers": [
+                                "show ip interface brief"
+                            ]
+                        },
+                        {
+                            "question": "Schüler melden langsame Antwortzeiten auf einem Switch. Der Administrator vermutet ein Duplexproblem. Welcher Befehl ist geeignet?",
+                            "options": [
+                                "show interfaces",
+                                "ipconfig getifaddr en0",
+                                "copy running-config startup-config",
+                                "show ip nat translations"
+                            ],
+                            "correct_answers": [
+                                "show interfaces"
+                            ]
+                        },
+                        {
+                            "question": "Ein Benutzer möchte die IP-Adresse seines PCs anzeigen. Welcher Befehl wird verwendet?",
+                            "options": [
+                                "ipconfig",
+                                "copy running-config startup-config",
+                                "show interfaces",
+                                "show ip nat translations"
+                            ],
+                            "correct_answers": [
+                                "ipconfig"
+                            ]
+                        },
+                        {
+                            "question": "Ein Schüler möchte eine Routerkonfiguration in den NVRAM speichern. Welcher Befehl wird verwendet?",
+                            "options": [
+                                "copy running-config startup-config",
+                                "show interfaces",
+                                "show ip nat translations",
+                                "show ip route"
+                            ],
+                            "correct_answers": [
+                                "copy running-config startup-config"
+                            ]
+                        },
+                        {
+                            "question": "Ein Techniker möchte die IP-Adresse der WLAN-Schnittstelle eines Mac-Geräts anzeigen. Welcher Befehl wird genutzt?",
+                            "options": [
+                                "ipconfig getifaddr en0",
+                                "copy running-config startup-config",
+                                "show interfaces",
+                                "show ip nat translations"
+                            ],
+                            "correct_answers": [
+                                "ipconfig getifaddr en0"
+                            ]
+                        },
+                        {
+                            "question": "Ein Techniker möchte alle IPv6-Adressen an Router-Schnittstellen prüfen. Welcher Befehl ist richtig?",
+                            "options": [
+                                "show ipv6 interface",
+                                "show interfaces",
+                                "show ip nat translations",
+                                "show ip route"
+                            ],
+                            "correct_answers": [
+                                "show ipv6 interface"
+                            ]
+                        },
+                        {
+                            "question": "Ein Lehrer kann seinen PC nicht mit dem Netzwerk verbinden. Er möchte prüfen, ob ein Standardgateway konfiguriert ist. Welcher Befehl wird verwendet?",
+                            "options": [
+                                "ipconfig",
+                                "copy running-config startup-config",
+                                "show interfaces",
+                                "show ip nat translations"
+                            ],
+                            "correct_answers": [
+                                "ipconfig"
+                            ]
+                        },
+                        {
+                            "question": "Nur Geräte mit IPv6 haben Probleme, entfernte Netzwerke zu erreichen. Der Analyst möchte prüfen, ob IPv6-Routing aktiviert ist. Welcher Befehl wird verwendet?",
+                            "options": [
+                                "show running-config",
+                                "show interfaces",
+                                "copy running-config startup-config",
+                                "show ip nat translations"
+                            ],
+                            "correct_answers": [
+                                "show running-config"
+                            ]
+                        },
+                        {
+                            "question": "Ein Administrator möchte die IP-Adresse einer Webseite bestimmen. Welcher Befehl ist geeignet?",
+                            "options": [
+                                "nslookup",
+                                "show ipv6 route",
+                                "show ipv6 interface",
+                                "copy startup-config running-config"
+                            ],
+                            "correct_answers": [
+                                "nslookup"
+                            ]
+                        },
+                        {
+                            "question": "Welche Eigenschaft trifft auf UDP zu?",
+                            "options": [
+                                "UDP-Datagramme nehmen denselben Weg und kommen in der richtigen Reihenfolge an.",
+                                "Anwendungen, die UDP verwenden, gelten stets als unzuverlässig.",
+                                "UDP setzt empfangene Datagramme in der Reihenfolge zusammen, in der sie ankommen.",
+                                "UDP sendet Daten nur, wenn das Ziel bereit ist, sie zu empfangen."
+                            ],
+                            "correct_answers": [
+                                "UDP setzt empfangene Datagramme in der Reihenfolge zusammen, in der sie ankommen."
+                            ],
+                            "explanation": "UDP garantiert keine Reihenfolge — es liefert Daten an die Anwendung in genau der Reihenfolge, in der sie eintreffen."
+                        }
+                    ]
+                `;
+
+                let data;
+
+                try {
+                    data = JSON.parse(rawJson);
+                } catch (e) {
+                    return showError('Invalid embedded JSON.');
+                }
+
+                if (!Array.isArray(data)) {
+                    return showError('Invalid JSON: expected an array of questions.');
+                }
+
+                data = sanitizeQuestions(data);
+
+                originalQuestions = data.map(q => ({
+                    ...q,
+                    options: Array.isArray(q.options) ? [...q.options] : []
+                }));
+
+                questions = shuffle(originalQuestions).map(q => ({
+                    ...q,
+                    options: Array.isArray(q.options) ? shuffle([...q.options]) : []
+                }));
+
+                showQuestion();
+            } catch (err) {
+                showError('Error loading JSON: ' + err.message);
+                console.error(err);
+            }
+        }
+
+        function showError(msg) {
+            container.textContent = msg;
+        }
+
+        function createEl(tag, props = {}, children = []) {
+            const el = document.createElement(tag);
+            Object.assign(el, props);
+            children.forEach(child => el.appendChild(child));
+            return el;
+        }
+
+        function showQuestion() {
+            container.innerHTML = '';
+            answered = false;
+
+            nextBtn.onclick = null;
+            nextBtn.disabled = false;
+            nextBtn.textContent = 'Submit';
+
+            if (currentIndex >= questions.length) {
+                showFinalSummary();
+                return;
+            }
+
+            const q = questions[currentIndex];
+            const wrapper = createEl('div');
+
+            const titleLine = q.title ? ("\n" + q.title) : "";
+            wrapper.appendChild(createEl('p', { textContent: (q.question || q.title || `Item ${currentIndex + 1}`) + titleLine }));
+
+            if (q.image_url) wrapper.appendChild(createImageBlock(q.image_url));
+
+            wrapper.appendChild(createOptionsList(q));
+
+            wrapper.appendChild(createEl('p', { id: 'explanation-msg', style: 'display:none;' }));
+            wrapper.appendChild(createEl('p', { id: 'result-msg' }));
+            wrapper.appendChild(createEl('div', {
+                className: 'question-counter',
+                textContent: `${currentIndex + 1} / ${questions.length}`
+            }));
+
+            container.appendChild(wrapper);
+        }
+
+        function createImageBlock(url) {
+            const loader = createEl('div', {
+                className: 'image-loader',
+                id: 'main-loader',
+                textContent: 'Loading image...'
+            });
+
+            const img = createEl('img', {
+                src: url,
+                style: 'max-width:100%;max-height:500px;margin-bottom:20px;display:none;'
+            });
+
+            img.onload = () => {
+                loader.style.display = 'none';
+                img.style.display = 'block';
+            };
+
+            img.onerror = () => {
+                loader.textContent = 'Failed to load image';
+                loader.style.color = '#ef4444';
+            };
+
+            return createEl('div', {}, [loader, img]);
+        }
+
+        function createOptionsList(q) {
+            const list = createEl('ul');
+            const isMultiple = q.correct_answers?.length > 1;
+
+            q.options.forEach((opt, i) => {
+                const li = createEl('li', { id: `li-${i}` });
+                const input = createEl('input', {
+                    type: isMultiple ? 'checkbox' : 'radio',
+                    name: 'answer',
+                    value: opt,
+                    id: `opt-${i}`
+                });
+
+                let label;
+
+                if (isImage(opt)) {
+                    input.dataset.isImage = 'true';
+                    label = createImageOption(opt, i);
+                } else {
+                    label = createEl('label', { htmlFor: `opt-${i}`, textContent: opt });
+                }
+
+                li.appendChild(input);
+                li.appendChild(label);
+                list.appendChild(li);
+            });
+
+            list.querySelectorAll('input[data-is-image="true"]').forEach(i => i.checked = true);
+
+            return list;
+        }
+
+        function isImage(opt) {
+            return typeof opt === 'string' &&
+                (opt.endsWith('.png') || opt.endsWith('.jpg') || opt.endsWith('.jpeg') || opt.startsWith('http'));
+        }
+
+        function createImageOption(url, index) {
+            const loader = createEl('div', {
+                className: 'image-loader',
+                id: `loader-${index}`,
+                textContent: 'Loading image...'
+            });
+
+            const img = createEl('img', {
+                src: url,
+                style: 'max-width:100%;max-height:300px;margin-top:10px;cursor:pointer;display:none;'
+            });
+
+            img.onload = () => {
+                loader.style.display = 'none';
+                img.style.display = 'block';
+            };
+
+            img.onerror = () => {
+                loader.textContent = 'Failed to load image';
+                loader.style.color = '#ef4444';
+            };
+
+            return createEl('label', { htmlFor: `opt-${index}` }, [loader, img]);
+        }
+
+        nextBtn.addEventListener('click', () => {
+            const q = questions[currentIndex];
+            const inputs = [...document.querySelectorAll('input[name="answer"]')];
+            const resultMsg = document.getElementById('result-msg');
+            const explanationMsg = document.getElementById('explanation-msg');
+
+            if (answered) {
+                currentIndex++;
+                showQuestion();
+                return;
+            }
+
+            const chosen = inputs.filter(i => i.checked).map(i => i.value);
+
+            if (chosen.length === 0 && ALLOW_SKIP) {
+                answeredCount++;
+                skippedCount++;
+
+                inputs.forEach(i => i.disabled = true);
+
+                if (resultMsg) resultMsg.textContent = 'Skipped';
+                nextBtn.textContent = 'Continue';
+                answered = true;
+                return;
+            }
+
+            if (chosen.length === 0) {
+                if (resultMsg) resultMsg.textContent = 'Please choose an answer.';
+                return;
+            }
+
+            const correct = chosen.length === q.correct_answers.length &&
+                chosen.every(a => q.correct_answers.includes(a));
+
+            inputs.forEach(i => i.disabled = true);
+
+            answeredCount++;
+
+            if (!correct) {
+                markAnswers(q, chosen);
+
+                if (resultMsg) resultMsg.textContent = 'Wrong!';
+                if (explanationMsg) {
+                    explanationMsg.style.display = 'block';
+                    explanationMsg.textContent = q.explanation || 'No explanation available for this question.';
+                }
+                nextBtn.textContent = 'Continue';
+            } else {
+                correctCount++;
+                if (resultMsg) resultMsg.textContent = 'Correct!';
+            }
+
+            answered = true;
+        });
+
+        function markAnswers(q, chosen) {
+            q.options.forEach((opt, index) => {
+                const li = document.getElementById(`li-${index}`);
+                if (!li) return;
+
+                const isCorrect = q.correct_answers.includes(opt);
+                const isChosen = chosen.includes(opt);
+
+                if (isCorrect) {
+                    li.classList.add('correct-answer');
+                    li.style.color = '#8bc34a';
+                }
+                if (isChosen && !isCorrect) {
+                    li.classList.add('wrong-answer');
+                }
+            });
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.code === 'Space' || e.code === 'Enter') {
+                e.preventDefault();
+                nextBtn.click();
+                return;
+            }
+
+            const index = (e.key === '0') ? 9 : Number(e.key) - 1;
+            if (index < 0 || index > 9) return;
+
+            const li = document.getElementById(`li-${index}`);
+            if (!li) return;
+
+            const label = li.querySelector('label');
+            if (label) {
+                e.preventDefault();
+                label.click();
+            }
+        });
+
+        function showFinalSummary() {
+            const total = questions.length;
+            const percent = total > 0 ? Math.round((correctCount / total) * 100) : 0;
+
+            container.innerHTML = '';
+            const summary = createEl('div');
+
+            const headline = createEl('p', { textContent: 'Results' });
+            const details = createEl('p', {
+                textContent: `Correct: ${correctCount} of ${total}  •  ${percent}%  •  Skipped: ${skippedCount}`
+            });
+
+            const btnBar = createEl('div', { className: 'summary-actions' });
+
+            const restart = createEl('button', { textContent: 'Restart' });
+            restart.addEventListener('click', restartQuiz);
+
+            const review = createEl('button', { textContent: 'Review answers' });
+            review.addEventListener('click', reviewAll);
+
+            btnBar.appendChild(restart);
+            btnBar.appendChild(review);
+
+            summary.appendChild(headline);
+            summary.appendChild(details);
+            summary.appendChild(btnBar);
+
+            container.appendChild(summary);
+
+            nextBtn.textContent = 'Done';
+            nextBtn.disabled = true;
+            nextBtn.onclick = null;
+        }
+
+        function restartQuiz() {
+            correctCount = 0;
+            answeredCount = 0;
+            skippedCount = 0;
+            currentIndex = 0;
+            answered = false;
+
+            questions = shuffle(originalQuestions).map(q => ({
+                ...q,
+                options: Array.isArray(q.options) ? shuffle([...q.options]) : []
+            }));
+
+            container.innerHTML = '';
+            nextBtn.disabled = false;
+            nextBtn.textContent = 'Submit';
+            nextBtn.onclick = null;
+
+            showQuestion();
+        }
+
+        function reviewAll() {
+            container.innerHTML = '';
+
+            const listWrap = createEl('div');
+
+            questions.forEach((q, qi) => {
+                const block = createEl('div', { className: 'review-block' });
+
+                block.appendChild(createEl('p', { textContent: `Question ${qi + 1}: ${q.question}` }));
+
+                const ul = createEl('ul');
+
+                (q.options || []).forEach((opt) => {
+                    const li = createEl('li');
+
+                    const isCorrect = (q.correct_answers || []).includes(opt);
+                    const lab = createEl('label', {
+                        textContent: opt,
+                        style: isCorrect ? 'border-color:#8bc34a; color:#8bc34a; font-weight:600;' : ''
+                    });
+
+                    li.appendChild(lab);
+                    ul.appendChild(li);
+                });
+
+                block.appendChild(ul);
+
+                if (q.explanation) {
+                    block.appendChild(createEl('p', {
+                        textContent: q.explanation,
+                        className: 'review-explanation'
+                    }));
+                }
+
+                listWrap.appendChild(block);
+            });
+
+            container.appendChild(listWrap);
+
+            nextBtn.disabled = false;
+            nextBtn.textContent = 'Back';
+
+            nextBtn.onclick = () => {
+                nextBtn.onclick = null;
+                showFinalSummary();
+                nextBtn.disabled = true;
+            };
+        }
+
+        loadQuestions();
+    </script>
+</body>
+
+</html>

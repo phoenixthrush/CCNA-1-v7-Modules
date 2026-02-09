@@ -39,6 +39,7 @@ body {
     color: #e8e6e1;
     margin-bottom: 25px;
     line-height: 1.5;
+    white-space: pre-line;
 }
 
 #questions-container img {
@@ -222,4 +223,43 @@ li.wrong-answer label {
 .copyright a:hover {
     color: rgba(232, 230, 225, 0.7);
     text-decoration: underline;
+}
+
+.summary-actions {
+    margin-top: 20px;
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.summary-actions button {
+    background: #8ab4f8;
+    color: #181a1b;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(138, 180, 248, 0.3);
+}
+
+.summary-actions button:hover {
+    transform: translateY(-2px);
+    background: #a8c8ff;
+    box-shadow: 0 6px 20px rgba(138, 180, 248, 0.5);
+}
+
+.review-block {
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #3a3d3f;
+}
+
+.review-explanation {
+    margin-top: 10px;
+    padding: 12px;
+    background: #2d2e30;
+    border-left: 4px solid #ff9800;
+    border-radius: 6px;
 }

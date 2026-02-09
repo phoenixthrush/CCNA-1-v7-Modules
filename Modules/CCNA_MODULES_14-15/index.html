@@ -49,6 +49,7 @@
             color: #e8e6e1;
             margin-bottom: 25px;
             line-height: 1.5;
+            white-space: pre-line;
         }
         
         #questions-container img {
@@ -233,6 +234,45 @@
             color: rgba(232, 230, 225, 0.7);
             text-decoration: underline;
         }
+        
+        .summary-actions {
+            margin-top: 20px;
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        
+        .summary-actions button {
+            background: #8ab4f8;
+            color: #181a1b;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(138, 180, 248, 0.3);
+        }
+        
+        .summary-actions button:hover {
+            transform: translateY(-2px);
+            background: #a8c8ff;
+            box-shadow: 0 6px 20px rgba(138, 180, 248, 0.5);
+        }
+        
+        .review-block {
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid #3a3d3f;
+        }
+        
+        .review-explanation {
+            margin-top: 10px;
+            padding: 12px;
+            background: #2d2e30;
+            border-left: 4px solid #ff9800;
+            border-radius: 6px;
+        }
     </style>
 </head>
 
@@ -243,7 +283,8 @@
         <a href="https://phoenixthrush.com" target="_blank" rel="noopener noreferrer">© 2025-2026 phoenixthrush</a>
     </div>
     <script>
-        // Fisher–Yates shuffle
+        const ALLOW_SKIP = true;
+        
         function shuffle(arr) {
             const a = [...arr];
             for (let i = a.length - 1; i > 0; i--) {
@@ -257,8 +298,63 @@
         const nextBtn = document.getElementById('next-btn');
         
         let questions = [];
+        let originalQuestions = [];
+        
         let currentIndex = 0;
         let answered = false;
+        
+        let correctCount = 0;
+        let answeredCount = 0;
+        let skippedCount = 0;
+        
+        function sanitizeQuestions(data) {
+            const seen = new Set();
+            const cleaned = [];
+        
+            for (const item of data) {
+                if (!item || typeof item.question !== 'string') continue;
+        
+                const question = item.question.trim();
+                if (!question) continue;
+        
+                const optionsRaw = Array.isArray(item.options)
+                    ? item.options.filter(o => typeof o === 'string')
+                    : [];
+                const options = optionsRaw.map(o => o.trim()).filter(o => o.length > 0);
+        
+                const optMap = new Map(options.map(o => [o.toLowerCase(), o]));
+        
+                const corrRaw = Array.isArray(item.correct_answers)
+                    ? item.correct_answers.filter(o => typeof o === 'string')
+                    : [];
+        
+                let correct = [];
+                for (const c of corrRaw) {
+                    const cTrim = c.trim();
+                    if (!cTrim) continue;
+        
+                    if (options.includes(cTrim)) {
+                        correct.push(cTrim);
+                        continue;
+                    }
+        
+                    const mapped = optMap.get(cTrim.toLowerCase());
+                    if (mapped) correct.push(mapped);
+                }
+        
+                correct = [...new Set(correct)];
+        
+                if (options.length === 0 || correct.length === 0) continue;
+        
+                const key = question.toLowerCase().replace(/\s+/g, ' ');
+                if (seen.has(key)) continue;
+        
+                seen.add(key);
+                cleaned.push({ ...item, question, options, correct_answers: correct });
+            }
+        
+            return cleaned;
+        }
         
         async function loadQuestions() {
             try {
@@ -396,7 +492,7 @@
                                 "Destination devices receive traffic with minimal delay.",
                                 "Received data is unacknowledged."
                             ],
-                            "explanation": "TCP: Provides tracking of transmitted data segments Destination devices will acknowledge received data. Source devices will retransmit unacknowledged data. UDP Destination devices will not acknowledge received data Headers use very little overhead and cause minimal delay.\u200b"
+                            "explanation": "TCP: Provides tracking of transmitted data segments Destination devices will acknowledge received data. Source devices will retransmit unacknowledged data. UDP Destination devices will not acknowledge received data Headers use very little overhead and cause minimal delay."
                         },
                         {
                             "question": "A client application needs to terminate a TCP communication session with a server. Place the termination process steps in the order that they will occur. (Not all options are used.) Explanation: In order to terminate a TCP session, the client sends to the server a segment with the FIN flag set. The server acknowledges the client by sending a segment with the ACK flag set. The server sends a FIN to the client to terminate the server to client session. The client acknowledges the termination by sending a segment with the ACK flag set. 14. Which flag in the TCP header is used in response to a received FIN in order to terminate connectivity between two network devices?",
@@ -409,20 +505,20 @@
                             "correct_answers": [
                                 "ACK"
                             ],
-                            "explanation": "In a TCP session, when a device has no more data to send, it will send a segment with the FIN flag set. The connected device that receives the segment will respond with an ACK to acknowledge that segment. The device that sent the ACK will then send a FIN message to close the connection it has with the other device. The sending of the FIN should be followed with the receipt of an ACK from the other device.\u200b"
+                            "explanation": "In a TCP session, when a device has no more data to send, it will send a segment with the FIN flag set. The connected device that receives the segment will respond with an ACK to acknowledge that segment. The device that sent the ACK will then send a FIN message to close the connection it has with the other device. The sending of the FIN should be followed with the receipt of an ACK from the other device."
                         },
                         {
                             "question": "What is a characteristic of UDP?",
                             "options": [
-                                "UDP datagrams take the same path and arrive in the correct order at the destination.\u200b",
-                                "Applications that use UDP are always considered unreliable.\u200b",
+                                "UDP datagrams take the same path and arrive in the correct order at the destination.",
+                                "Applications that use UDP are always considered unreliable.",
                                 "UDP reassembles the received datagrams in the order they were received.",
                                 "UDP only passes data to the network when the destination is ready to receive the data."
                             ],
                             "correct_answers": [
                                 "UDP reassembles the received datagrams in the order they were received."
                             ],
-                            "explanation": "UDP has no way to reorder the datagrams into their transmission order, so UDP simply reassembles the data in the order it was received and forwards it to the application.\u200b"
+                            "explanation": "UDP has no way to reorder the datagrams into their transmission order, so UDP simply reassembles the data in the order it was received and forwards it to the application."
                         },
                         {
                             "question": "What kind of port must be requested from IANA in order to be used with a specific application?",
@@ -435,7 +531,7 @@
                             "correct_answers": [
                                 "registered port"
                             ],
-                            "explanation": "Registered ports (numbers 1024 to 49151) are assigned by IANA to a requesting entity to use with specific processes or applications. These processes are primarily individual applications that a user has chosen to install, rather than common applications that would receive a well-known port number. For example, Cisco has registered port 1985 for its Hot Standby Routing Protocol (HSRP) process.\u200b"
+                            "explanation": "Registered ports (numbers 1024 to 49151) are assigned by IANA to a requesting entity to use with specific processes or applications. These processes are primarily individual applications that a user has chosen to install, rather than common applications that would receive a well-known port number. For example, Cisco has registered port 1985 for its Hot Standby Routing Protocol (HSRP) process."
                         },
                         {
                             "question": "Which three application layer protocols use TCP? (Choose three.)",
@@ -665,7 +761,7 @@
                                 "presentation",
                                 "application"
                             ],
-                            "explanation": "The network access layer of the TCP/IP model performs the same functions as the physical and data link layers of the OSI model. The internetwork layer equates to the network layer of the OSI model. The transport layers are the same in both models. The application layer of the TCP/IP model represents the session, presentation, and application layers of the OSI model.\u200b"
+                            "explanation": "The network access layer of the TCP/IP model performs the same functions as the physical and data link layers of the OSI model. The internetwork layer equates to the network layer of the OSI model. The transport layers are the same in both models. The application layer of the TCP/IP model represents the session, presentation, and application layers of the OSI model."
                         },
                         {
                             "question": "What is an example of network communication that uses the client-server model?",
@@ -695,15 +791,15 @@
                             "explanation": "The application layer of the TCP/IP model performs the functions of three layers of the OSI model - application, presentation, and session. The application layer of the TCP/IP model is the layer that provides the interface between the applications, is responsible for formatting, compressing, and encrypting data, and is used to create and maintain dialogs between source and destination applications."
                         },
                         {
-                            "question": "What is an advantage of SMB over FTP?\u200b",
+                            "question": "What is an advantage of SMB over FTP?",
                             "options": [
                                 "Only with SMB can data transfers occur in both directions.",
-                                "Only SMB establishes two simultaneous connections with the client, making the data transfer faster.\u200b",
-                                "SMB is more reliable than FTP because SMB uses TCP and FTP uses UDP.\u200b",
-                                "SMB clients can establish a long-term connection to the server.\u200b"
+                                "Only SMB establishes two simultaneous connections with the client, making the data transfer faster.",
+                                "SMB is more reliable than FTP because SMB uses TCP and FTP uses UDP.",
+                                "SMB clients can establish a long-term connection to the server."
                             ],
                             "correct_answers": [
-                                "SMB clients can establish a long-term connection to the server.\u200b"
+                                "SMB clients can establish a long-term connection to the server."
                             ],
                             "explanation": "SMB and FTP are client/server protocols that are used for file transfer. SMB allows the connecting device to access resources as if they were on the local client device. SMB and FTP use the TCP protocol for connection establishment and they can transfer data in both directions. FTP requires two connections between the client and the server, one for commands and replies, the other for the actual file transfer."
                         },
@@ -973,13 +1069,19 @@
                     return showError('Invalid JSON: expected an array of questions.');
                 }
         
-                questions = shuffle(data).map(q => ({
+                data = sanitizeQuestions(data);
+        
+                originalQuestions = data.map(q => ({
                     ...q,
-                    options: Array.isArray(q.options) ? shuffle(q.options) : []
+                    options: Array.isArray(q.options) ? [...q.options] : []
+                }));
+        
+                questions = shuffle(originalQuestions).map(q => ({
+                    ...q,
+                    options: Array.isArray(q.options) ? shuffle([...q.options]) : []
                 }));
         
                 showQuestion();
-        
             } catch (err) {
                 showError('Error loading JSON: ' + err.message);
                 console.error(err);
@@ -1000,16 +1102,21 @@
         function showQuestion() {
             container.innerHTML = '';
             answered = false;
+        
+            nextBtn.onclick = null;
+            nextBtn.disabled = false;
             nextBtn.textContent = 'Submit';
         
             if (currentIndex >= questions.length) {
-                return showError('No more questions.');
+                showFinalSummary();
+                return;
             }
         
             const q = questions[currentIndex];
             const wrapper = createEl('div');
         
-            wrapper.appendChild(createEl('p', { textContent: q.question || q.title || `Item ${currentIndex + 1}` }));
+            const titleLine = q.title ? ("\n" + q.title) : "";
+            wrapper.appendChild(createEl('p', { textContent: (q.question || q.title || `Item ${currentIndex + 1}`) + titleLine }));
         
             if (q.image_url) wrapper.appendChild(createImageBlock(q.image_url));
         
@@ -1126,8 +1233,20 @@
         
             const chosen = inputs.filter(i => i.checked).map(i => i.value);
         
+            if (chosen.length === 0 && ALLOW_SKIP) {
+                answeredCount++;
+                skippedCount++;
+        
+                inputs.forEach(i => i.disabled = true);
+        
+                if (resultMsg) resultMsg.textContent = 'Skipped';
+                nextBtn.textContent = 'Continue';
+                answered = true;
+                return;
+            }
+        
             if (chosen.length === 0) {
-                resultMsg.textContent = 'Please choose an answer.';
+                if (resultMsg) resultMsg.textContent = 'Please choose an answer.';
                 return;
             }
         
@@ -1136,14 +1255,20 @@
         
             inputs.forEach(i => i.disabled = true);
         
+            answeredCount++;
+        
             if (!correct) {
                 markAnswers(q, chosen);
-                resultMsg.textContent = 'Wrong!';
-                explanationMsg.style.display = 'block';
-                explanationMsg.textContent = q.explanation || 'No explanation available for this question.';
+        
+                if (resultMsg) resultMsg.textContent = 'Wrong!';
+                if (explanationMsg) {
+                    explanationMsg.style.display = 'block';
+                    explanationMsg.textContent = q.explanation || 'No explanation available for this question.';
+                }
                 nextBtn.textContent = 'Continue';
             } else {
-                resultMsg.textContent = 'Correct!';
+                correctCount++;
+                if (resultMsg) resultMsg.textContent = 'Correct!';
             }
         
             answered = true;
@@ -1152,6 +1277,8 @@
         function markAnswers(q, chosen) {
             q.options.forEach((opt, index) => {
                 const li = document.getElementById(`li-${index}`);
+                if (!li) return;
+        
                 const isCorrect = q.correct_answers.includes(opt);
                 const isChosen = chosen.includes(opt);
         
@@ -1184,6 +1311,109 @@
                 label.click();
             }
         });
+        
+        function showFinalSummary() {
+            const total = questions.length;
+            const percent = total > 0 ? Math.round((correctCount / total) * 100) : 0;
+        
+            container.innerHTML = '';
+            const summary = createEl('div');
+        
+            const headline = createEl('p', { textContent: 'Results' });
+            const details = createEl('p', {
+                textContent: `Correct: ${correctCount} of ${total}  •  ${percent}%  •  Skipped: ${skippedCount}`
+            });
+        
+            const btnBar = createEl('div', { className: 'summary-actions' });
+        
+            const restart = createEl('button', { textContent: 'Restart' });
+            restart.addEventListener('click', restartQuiz);
+        
+            const review = createEl('button', { textContent: 'Review answers' });
+            review.addEventListener('click', reviewAll);
+        
+            btnBar.appendChild(restart);
+            btnBar.appendChild(review);
+        
+            summary.appendChild(headline);
+            summary.appendChild(details);
+            summary.appendChild(btnBar);
+        
+            container.appendChild(summary);
+        
+            nextBtn.textContent = 'Done';
+            nextBtn.disabled = true;
+            nextBtn.onclick = null;
+        }
+        
+        function restartQuiz() {
+            correctCount = 0;
+            answeredCount = 0;
+            skippedCount = 0;
+            currentIndex = 0;
+            answered = false;
+        
+            questions = shuffle(originalQuestions).map(q => ({
+                ...q,
+                options: Array.isArray(q.options) ? shuffle([...q.options]) : []
+            }));
+        
+            container.innerHTML = '';
+            nextBtn.disabled = false;
+            nextBtn.textContent = 'Submit';
+            nextBtn.onclick = null;
+        
+            showQuestion();
+        }
+        
+        function reviewAll() {
+            container.innerHTML = '';
+        
+            const listWrap = createEl('div');
+        
+            questions.forEach((q, qi) => {
+                const block = createEl('div', { className: 'review-block' });
+        
+                block.appendChild(createEl('p', { textContent: `Question ${qi + 1}: ${q.question}` }));
+        
+                const ul = createEl('ul');
+        
+                (q.options || []).forEach((opt) => {
+                    const li = createEl('li');
+        
+                    const isCorrect = (q.correct_answers || []).includes(opt);
+                    const lab = createEl('label', {
+                        textContent: opt,
+                        style: isCorrect ? 'border-color:#8bc34a; color:#8bc34a; font-weight:600;' : ''
+                    });
+        
+                    li.appendChild(lab);
+                    ul.appendChild(li);
+                });
+        
+                block.appendChild(ul);
+        
+                if (q.explanation) {
+                    block.appendChild(createEl('p', {
+                        textContent: q.explanation,
+                        className: 'review-explanation'
+                    }));
+                }
+        
+                listWrap.appendChild(block);
+            });
+        
+            container.appendChild(listWrap);
+        
+            nextBtn.disabled = false;
+            nextBtn.textContent = 'Back';
+        
+            nextBtn.onclick = () => {
+                nextBtn.onclick = null;
+                showFinalSummary();
+                nextBtn.disabled = true;
+            };
+        }
         
         loadQuestions();
     </script>
