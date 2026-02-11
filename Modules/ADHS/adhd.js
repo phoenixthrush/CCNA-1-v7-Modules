@@ -1,12 +1,6 @@
-/**
- * ADHS "brain-rot" overlay.
- *
- * When this file is loaded via a <script src=".../adhd.js"></script>, it injects:
- * - the CSS shown in the original comments (added to <head>)
- * - the video-container HTML shown in the original comments (inserted after #next-btn if present)
- *
- * MP4 URLs are resolved relative to this script's URL, so it works no matter which page imports it.
- */
+/*
+    Do not add index.html?adhd=1 :)
+*/
 
 (function () {
     const STYLE_ID = 'adhd-style';
