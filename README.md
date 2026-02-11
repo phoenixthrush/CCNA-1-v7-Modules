@@ -6,7 +6,7 @@
 python templates/fetch.py
 ```
 
-## Build
+## Build Static HTML Pages
 
 ```python
 python templates/convert.py
